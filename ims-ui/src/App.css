@@ -1,0 +1,105 @@
+.App-header {
+  background-color: #222;
+  color: white;
+}
+
+.printme {
+  display: none;
+}
+@media print {
+  .printme {
+    display: block;
+  }
+}
+
+.navbar-item {
+  background-size: cover;
+  width: 152px;
+  color: #3273dc;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.m-t-20 {
+  margin-top: 80px;
+}
+
+.card {
+  box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.newnote-page {
+  height: calc(100vh - 52px);
+  width: 100%;
+}
+
+.field:not(:last-child) {
+  margin-bottom: 2.75rem;
+}
+
+.card button {
+  border: none;
+  color: #3273dc;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+}
+.card button:hover {
+  color: #363636;
+}
+
+.cgst-title {
+  color: #3273dc;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+td {
+  height: 30px;
+  width: 50px;
+}
+
+#cssTable td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.column {
+  text-align: left;
+}
+
+.label-right {
+  text-align: right;
+}
+
+.container {
+  margin: 150px auto;
+}
+
+.control-button {
+  text-align: center;
+}
+
+.invisible {
+  position: absolute;
+  left: -9999px;
+}
