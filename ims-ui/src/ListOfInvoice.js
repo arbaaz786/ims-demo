@@ -72,8 +72,8 @@ function ListOfInvoice() {
       sortable: true,
     },
     {
-      name: 'Email Id',
-      selector: 'emailId',
+      name: 'Address',
+      selector: 'address',
       sortable: true,
       width: '200px',
     },
@@ -84,10 +84,10 @@ function ListOfInvoice() {
     },
     {
       name: 'Date',
-      selector: 'date',
+      selector: 'deliveryNoteDate',
       sortable: true,
       width: '200px',
-      cell: (row) => moment(row.timestamp).format('lll'),
+      cell: (row) => moment(row.deliveryNoteDate).format('lll'),
     },
     {
       name: 'Edit',

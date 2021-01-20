@@ -564,8 +564,8 @@ const UpdateInvoice = ({ match }) => {
                   ></input>
                 </div>
               </div>
-              <div className='field'>
-                <label className='label'>Book No</label>
+              <div className='field invisible'>
+                <label className='label'>SR</label>
                 <div className='control'>
                   <input
                     className='input'

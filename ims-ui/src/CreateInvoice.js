@@ -346,7 +346,7 @@ const CreateInvoice = withRouter(({ history }) => {
                     value={deliveryNote}
                     onChange={(e) => setDeliveryNote(e.target.value)}
                   >
-                    <option value='' disabled selected>
+                    <option defaultValue='' disabled>
                       Choose your option
                     </option>
                     <option value='Cash'>Cash</option>
@@ -472,7 +472,7 @@ const CreateInvoice = withRouter(({ history }) => {
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                   >
-                    <option value='' disabled selected>
+                    <option defaultValue='' disabled>
                       Choose your option
                     </option>
                     <option value='5'>5 %</option>
