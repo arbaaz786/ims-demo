@@ -394,6 +394,24 @@ const UpdateInvoice = ({ match }) => {
                   ></input>
                 </div>
               </div>
+
+              <div className='field'>
+                <label className='label'>Invoice No</label>
+                <div className='control'>
+                  <input
+                    className='input'
+                    name='invoiceNo'
+                    placeholder='invoiceNo'
+                    defaultValue={invoice.invoiceNo}
+                    onChange={(e) => setInvoiceNo(e.target.value)}
+                  ></input>
+                </div>
+              </div>
+            </div>
+
+            {/* 2 column start here */}
+
+            <div className='column'>
               <div className='field'>
                 <label className='label'>Address</label>
                 <div className='control'>
@@ -406,48 +424,7 @@ const UpdateInvoice = ({ match }) => {
                   ></input>
                 </div>
               </div>
-              <div className='field'>
-                <label className='label'>EmailId</label>
-                <div className='control'>
-                  <input
-                    className='input'
-                    name='emailId'
-                    placeholder='Email ID'
-                    defaultValue={invoice.emailId}
-                    onChange={(e) => setEmailId(e.target.value)}
-                  ></input>
-                </div>
-              </div>
 
-              <div className='field'>
-                <label className='label'>Contact No</label>
-                <div className='control'>
-                  <input
-                    className='input'
-                    name='contactNo'
-                    placeholder='Contact No'
-                    defaultValue={invoice.contactNo}
-                    onChange={(e) => setContactNo(e.target.value)}
-                  ></input>
-                </div>
-              </div>
-            </div>
-
-            {/* 2 column start here */}
-
-            <div className='column'>
-              <div className='field'>
-                <label className='label'>invoiceNo</label>
-                <div className='control'>
-                  <input
-                    className='input'
-                    name='invoiceNo'
-                    placeholder='invoiceNo'
-                    defaultValue={invoice.invoiceNo}
-                    onChange={(e) => setInvoiceNo(e.target.value)}
-                  ></input>
-                </div>
-              </div>
               <div className='field invisible'>
                 <label className='label'>deliveryNote</label>
                 <div className='control'>
@@ -508,6 +485,18 @@ const UpdateInvoice = ({ match }) => {
                   ></input>
                 </div>
               </div>
+              <div className='field'>
+                <label className='label'>DisriptionOfGoods</label>
+                <div className='control'>
+                  <input
+                    className='input'
+                    name='disriptionOfGoods'
+                    placeholder='disriptionOfGoods'
+                    defaultValue={invoice.disriptionOfGoods}
+                    onChange={(e) => setDisriptionOfGoods(e.target.value)}
+                  ></input>
+                </div>
+              </div>
 
               {/* <div className='field'>
             <label className='label'>deliveryNoteDate</label>
@@ -521,17 +510,6 @@ const UpdateInvoice = ({ match }) => {
               ></input>
             </div>
           </div> */}
-
-              <div className='field'>
-                <label className='label'> Date</label>
-                <div className='control'>
-                  <DatePicker
-                    className='input'
-                    selected={deliveryNoteDate}
-                    onChange={(date) => setStartDate(date)}
-                  />
-                </div>
-              </div>
 
               <div className='field invisible'>
                 <label className='label'>dispatchedThrough</label>
@@ -549,8 +527,20 @@ const UpdateInvoice = ({ match }) => {
 
             {/* 3 column start here */}
 
-            <div className='column invisible'>
+            <div className='column '>
               <div className='field'>
+                <label className='label'>Email Id</label>
+                <div className='control'>
+                  <input
+                    className='input'
+                    name='emailId'
+                    placeholder='Email ID'
+                    defaultValue={invoice.emailId}
+                    onChange={(e) => setEmailId(e.target.value)}
+                  ></input>
+                </div>
+              </div>
+              <div className='field invisible'>
                 <label className='label'>destination</label>
                 <div className='control'>
                   <input
@@ -587,27 +577,13 @@ const UpdateInvoice = ({ match }) => {
                 </div>
               </div>
               <div className='field'>
-                <label className='label'>disriptionOfGoods</label>
+                <label className='label'> Date</label>
                 <div className='control'>
-                  <input
+                  <DatePicker
                     className='input'
-                    name='disriptionOfGoods'
-                    placeholder='disriptionOfGoods'
-                    defaultValue={invoice.disriptionOfGoods}
-                    onChange={(e) => setDisriptionOfGoods(e.target.value)}
-                  ></input>
-                </div>
-              </div>
-              <div className='field'>
-                <label className='label'>modelNo</label>
-                <div className='control'>
-                  <input
-                    className='input'
-                    name='modelNo'
-                    placeholder='modelNo'
-                    defaultValue={invoice.modelNo}
-                    onChange={(e) => setModelNo(e.target.value)}
-                  ></input>
+                    selected={deliveryNoteDate}
+                    onChange={(date) => setStartDate(date)}
+                  />
                 </div>
               </div>
             </div>
@@ -616,7 +592,19 @@ const UpdateInvoice = ({ match }) => {
 
             <div className='column'>
               <div className='field'>
-                <label className='label'>sirNo</label>
+                <label className='label'>Contact No</label>
+                <div className='control'>
+                  <input
+                    className='input'
+                    name='contactNo'
+                    placeholder='Contact No'
+                    defaultValue={invoice.contactNo}
+                    onChange={(e) => setContactNo(e.target.value)}
+                  ></input>
+                </div>
+              </div>
+              <div className='field'>
+                <label className='label'>Serial No</label>
                 <div className='control'>
                   <input
                     className='input'
@@ -679,8 +667,20 @@ const UpdateInvoice = ({ match }) => {
 
             {/* 5 column start here */}
 
-            <div className='column invisible'>
+            <div className='column'>
               <div className='field'>
+                <label className='label'>Model No</label>
+                <div className='control'>
+                  <input
+                    className='input'
+                    name='modelNo'
+                    placeholder='modelNo'
+                    defaultValue={invoice.modelNo}
+                    onChange={(e) => setModelNo(e.target.value)}
+                  ></input>
+                </div>
+              </div>
+              <div className='field invisible'>
                 <label className='label'>discount</label>
                 <div className='control'>
                   <input
@@ -693,7 +693,7 @@ const UpdateInvoice = ({ match }) => {
                 </div>
               </div>
               <div className='field invisible'>
-                <label className='label'>amount</label>
+                <label className='label'>Amount</label>
                 <div className='control'>
                   <input
                     className='input'
@@ -706,7 +706,7 @@ const UpdateInvoice = ({ match }) => {
               </div>
 
               <div className='field'>
-                <label className='label'>totalAmount</label>
+                <label className='label'>Total Amount</label>
                 <div className='control'>
                   <input
                     className='input'
@@ -717,7 +717,7 @@ const UpdateInvoice = ({ match }) => {
                   ></input>
                 </div>
               </div>
-              <div className='field'>
+              <div className='field invisible'>
                 <label className='label'>totalAmountInWords</label>
                 <div className='control'>
                   <input
@@ -733,7 +733,7 @@ const UpdateInvoice = ({ match }) => {
           </div>
           {/*  columns END here */}
           <div className='field'>
-            <div className='control'>
+            <div className='control-button'>
               <button className='button is-link'>Submit</button>
             </div>
           </div>

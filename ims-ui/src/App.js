@@ -13,6 +13,7 @@ import EditInvoice from './EditInvoice';
 // import AllNotes from './AllNotes';
 import PrintInvoice from './PrintInvoice';
 import UpdateInvoice from './UpdateInvoice';
+import ListOfInvoices from './ListOfInvoice';
 
 function App() {
   return (
@@ -42,8 +43,8 @@ function App() {
             {/* <Link to="/newentry" className="navbar-item">
               New Enrty
             </Link> */}
-            {/* <Link to='/invoices' className='navbar-item'>
-              ALL Invoice
+            {/* <Link to='/listOfInvoices' className='navbar-item'>
+              listOfInvoices
             </Link> */}
             <Link to='/newinvoice' className='navbar-item'>
               Create Invoice
@@ -58,7 +59,8 @@ function App() {
         </nav>
         {/* <Route exact path="/" component={AllEntries} /> */}
         <Route exact path='/invoices' component={AllInvoices} />
-        <Route exact path='/' component={AllInvoices} />
+        {/* <Route exact path='/' component={AllInvoices} /> */}
+        <Route exact path='/' component={ListOfInvoices} />
         <Route path='/newnote' component={NewNote} />
         <Route path='/newentry' component={NewEntry} />
         <Route path='/newinvoice' component={CreateInvoice} />

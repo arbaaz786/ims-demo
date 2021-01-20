@@ -210,7 +210,7 @@ const PrintInvoice = ({ match }) => {
                 </div>
               </td>
               <td>
-                Invoice No.<p>{data.getJdentBuyer.srNo}</p>
+                Invoice No.<p>{data.getJdentBuyer.invoiceNo}</p>
               </td>
               {/* <td>Dated<p>{new Date(data.getJdentBuyer.date).toLocaleDateString()}</p></td> */}
               <td>
@@ -460,7 +460,7 @@ const PrintInvoice = ({ match }) => {
               <td colSpan='4'>
                 <p> &nbsp; </p>
                 <p> &nbsp; </p>
-                <p class='cgst-title'> For J. D. ENTERPRISES </p>
+                <p className='cgst-title'> For J. D. ENTERPRISES </p>
               </td>
             </tr>
             <tr>
