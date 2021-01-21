@@ -14,6 +14,7 @@ import EditInvoice from './EditInvoice';
 import PrintInvoice from './PrintInvoice';
 import UpdateInvoice from './UpdateInvoice';
 import ListOfInvoices from './ListOfInvoice';
+import SMSForm from './SMSForm';
 
 function App() {
   return (
@@ -31,9 +32,9 @@ function App() {
             </Link>
           </div>
           <div className='navbar-end'>
-            {/* <Link to="/" className="navbar-item">
-              All Entries
-            </Link> */}
+            <Link to='/sms' className='navbar-item'>
+              Send SMS
+            </Link>
             {/* <Link to='/' className='navbar-item'>
               All Notes
             </Link> */}
@@ -68,6 +69,7 @@ function App() {
         <Route path='/printinvoice/:id' component={PrintInvoice} />
         <Route path='/note/:id' component={EditNote} />
         <Route path='/updateInvoice/:id' component={UpdateInvoice} />
+        <Route path='/sms' component={SMSForm} />
         {/* <Route path="/entry/:id" component={EditEntry} /> */}
       </div>
       {/* 
