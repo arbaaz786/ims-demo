@@ -58,7 +58,7 @@ app.post('/api/messages', (req, res) => {
 
 app.get('/', (req, res) => {
   res.json({
-    message: 'JD enterprises API v1',
+    message: 'IMS API v1',
   });
 });
 app.use(
@@ -69,5 +69,5 @@ app.use(
   })
 );
 app.listen(PORT, () => {
-  console.log(`Server is listening on PORT ${PORT}`);
+  console.log(`🚀 Server is listening on PORT 💥 ${PORT} 💥 `);
 });

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './App.css';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
@@ -116,14 +115,13 @@ function ListOfInvoice() {
       button: true,
       cell: (row) => (
         <button
+          className='button is-link is-small'
           onClick={(e) => {
             e.preventDefault();
             onDelete(row);
           }}
         >
-          <a>
-            <i className='fas fa-trash-alt'></i>
-          </a>
+          <i className='fas fa-trash-alt'></i>
         </button>
       ),
     },

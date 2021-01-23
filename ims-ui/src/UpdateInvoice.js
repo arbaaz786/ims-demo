@@ -582,6 +582,9 @@ const UpdateInvoice = ({ match }) => {
                   <DatePicker
                     className='input'
                     selected={deliveryNoteDate}
+                    showMonthDropdown={true}
+                    showYearDropdown={true}
+                    scrollableYearDropdown={true}
                     onChange={(date) => setStartDate(date)}
                   />
                 </div>
