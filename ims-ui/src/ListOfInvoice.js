@@ -5,10 +5,8 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-// import { Link } from 'react-router-dom';
 import { notify } from 'react-notify-toast';
 import moment from 'moment';
-// import { columns, data } from './data';
 
 const BUYERS_QUERY = gql`
   {
@@ -89,6 +87,11 @@ function ListOfInvoice() {
       cell: (row) => moment(row.deliveryNoteDate).format('lll'),
     },
     {
+      name: 'Balance Days',
+      selector: 'balanceDays',
+      sortable: true,
+    },
+    {
       name: 'Edit',
       button: true,
       cell: (row) => (
@@ -157,12 +160,28 @@ function ListOfInvoice() {
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
 
-  const listOfInvoice = data.allJdentBuyers;
+  let listOfInvoice = data.allJdentBuyers;
+  let oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+
   console.log('columns', columns);
   console.log('listOfInvoice ', listOfInvoice);
+
+  var arrOfObj = listOfInvoice;
+
+  var NewListOfInvoice = arrOfObj.map(function (el) {
+    let billDate = el.deliveryNoteDate;
+    let currentDate = el.date;
+    let balanceDays = Math.round(
+      Math.abs((new Date(currentDate) - new Date(billDate)) / oneDay)
+    );
+    var o = Object.assign({}, el);
+    o.balanceDays = balanceDays;
+    return o;
+  });
+
   const tableData = {
     columns,
-    data: listOfInvoice,
+    data: NewListOfInvoice,
   };
 
   return (
