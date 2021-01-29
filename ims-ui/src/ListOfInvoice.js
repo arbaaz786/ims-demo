@@ -55,13 +55,14 @@ const DELETE_INVOICE_QUERY = gql`
   }
 `;
 
-function ListOfInvoice() {
+const ListOfInvoice = ({ history }) => {
+  // function ListOfInvoice() {
   const columns = [
     {
       name: 'Invoice No',
       selector: 'invoiceNo',
       sortable: true,
-      width: '100px',
+      width: '75px',
     },
     {
       name: 'Name',
@@ -83,20 +84,22 @@ function ListOfInvoice() {
       name: 'Date',
       selector: 'deliveryNoteDate',
       sortable: true,
-      width: '200px',
+      width: '175px',
       cell: (row) => moment(row.deliveryNoteDate).format('lll'),
     },
     {
       name: 'Balance Days',
       selector: 'balanceDays',
       sortable: true,
+      width: '100px',
     },
     {
       name: 'Edit',
       button: true,
+      width: '75px',
       cell: (row) => (
         <button>
-          <a href={`updateInvoice/${row._id}`}>
+          <a href={` updateInvoice/${row.deliveryNoteDate}/${row._id}`}>
             <i className='fas fa-edit'></i>
           </a>
         </button>
@@ -105,6 +108,7 @@ function ListOfInvoice() {
     {
       name: 'Print',
       button: true,
+      width: '75px',
       cell: (row) => (
         <button>
           <a href={`printinvoice/${row._id}`}>
@@ -116,6 +120,7 @@ function ListOfInvoice() {
     {
       name: 'Delete',
       button: true,
+      width: '75px',
       cell: (row) => (
         <button
           className='button is-link is-small'
@@ -139,9 +144,10 @@ function ListOfInvoice() {
 
     if (window.confirm(`Are you sure you want to delete:\r ${row.title}?`)) {
       deleteBuyer({ variables: { _id: row._id } });
+      history.push('/');
       notify.show('Note was deleted successfully', 'success');
-      window.location.reload(false);
     }
+    // window.location.reload(false);
   }
 
   const [deleteBuyer] = useMutation(DELETE_INVOICE_QUERY, {
@@ -199,6 +205,6 @@ function ListOfInvoice() {
       </DataTableExtensions>
     </div>
   );
-}
+};
 
 export default ListOfInvoice;

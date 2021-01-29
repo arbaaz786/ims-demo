@@ -68,7 +68,10 @@ function App() {
         <Route path='/newinvoice' component={CreateInvoice} />
         {/* <Route path='/invoice/:id' component={EditInvoice} /> */}
         <Route path='/printinvoice/:id' component={PrintInvoice} />
-        <Route path='/updateInvoice/:id' component={UpdateInvoice} />
+        <Route
+          path='/updateInvoice/:deliveryNoteDate/:id'
+          component={UpdateInvoice}
+        />
         <Route path='/sms' component={SMSForm} />
         {/* <Route path="/entry/:id" component={EditEntry} /> */}
       </div>

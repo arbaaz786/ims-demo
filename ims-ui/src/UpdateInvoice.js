@@ -135,8 +135,10 @@ const UPDATE_INVOICE = gql`
   }
 `;
 
-const UpdateInvoice = ({ match }) => {
-  console.log('UpdateInvoice--------->', match.params);
+const UpdateInvoice = ({ match, history }) => {
+  // console.log('UpdateInvoice--------->', match);
+
+  let invoiceDate = new Date(match.params.deliveryNoteDate);
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -153,7 +155,7 @@ const UpdateInvoice = ({ match }) => {
   const [buyersOrderNo, setBuyersOrderNo] = useState('');
   const [dispatchDocumentNo, setDispatchDocumentNo] = useState('');
   // const [deliveryNoteDate, setDeliveryNoteDate] = useState('');
-  const [deliveryNoteDate, setStartDate] = useState(new Date());
+  const [deliveryNoteDate, setStartDate] = useState(invoiceDate);
   const [dispatchedThrough, setDispatchedThrough] = useState('');
   const [destination, setDestination] = useState('');
   const [termsOfDelivery, setTermsOfDelivery] = useState('');
@@ -187,117 +189,11 @@ const UpdateInvoice = ({ match }) => {
 
   const invoice = data.getJdentBuyer;
 
-  var amountString = parseInt(data.getJdentBuyer.totalAmount);
+  let gstPercentage = invoice.content;
+  let modeOfPay = invoice.deliveryNote;
+  // let invoiceDate = new Date(invoice.deliveryNoteDate);
 
-  var amountToWord = amountString;
-  var words = new Array();
-  words[0] = '';
-  words[1] = 'One';
-  words[2] = 'Two';
-  words[3] = 'Three';
-  words[4] = 'Four';
-  words[5] = 'Five';
-  words[6] = 'Six';
-  words[7] = 'Seven';
-  words[8] = 'Eight';
-  words[9] = 'Nine';
-  words[10] = 'Ten';
-  words[11] = 'Eleven';
-  words[12] = 'Twelve';
-  words[13] = 'Thirteen';
-  words[14] = 'Fourteen';
-  words[15] = 'Fifteen';
-  words[16] = 'Sixteen';
-  words[17] = 'Seventeen';
-  words[18] = 'Eighteen';
-  words[19] = 'Nineteen';
-  words[20] = 'Twenty';
-  words[30] = 'Thirty';
-  words[40] = 'Forty';
-  words[50] = 'Fifty';
-  words[60] = 'Sixty';
-  words[70] = 'Seventy';
-  words[80] = 'Eighty';
-  words[90] = 'Ninety';
-  amountToWord = amountToWord.toString();
-  var atemp = amountToWord.split('.');
-  var number = atemp[0].split(',').join('');
-  var n_length = number.length;
-  var words_string = '';
-  if (n_length <= 9) {
-    var n_array = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0);
-    var received_n_array = new Array();
-    for (var i = 0; i < n_length; i++) {
-      received_n_array[i] = number.substr(i, 1);
-    }
-    for (var i = 9 - n_length, j = 0; i < 9; i++, j++) {
-      n_array[i] = received_n_array[j];
-    }
-    for (var i = 0, j = 1; i < 9; i++, j++) {
-      if (i == 0 || i == 2 || i == 4 || i == 7) {
-        if (n_array[i] == 1) {
-          n_array[j] = 10 + parseInt(n_array[j]);
-          n_array[i] = 0;
-        }
-      }
-    }
-    var value = '';
-    for (var i = 0; i < 9; i++) {
-      if (i == 0 || i == 2 || i == 4 || i == 7) {
-        value = n_array[i] * 10;
-      } else {
-        value = n_array[i];
-      }
-      if (value != 0) {
-        words_string += words[value] + ' ';
-      }
-      if (
-        (i == 1 && value != 0) ||
-        (i == 0 && value != 0 && n_array[i + 1] == 0)
-      ) {
-        words_string += 'Crores ';
-      }
-      if (
-        (i == 3 && value != 0) ||
-        (i == 2 && value != 0 && n_array[i + 1] == 0)
-      ) {
-        words_string += 'Lakhs ';
-      }
-      if (
-        (i == 5 && value != 0) ||
-        (i == 4 && value != 0 && n_array[i + 1] == 0)
-      ) {
-        words_string += 'Thousand ';
-      }
-      if (i == 6 && value != 0 && n_array[i + 1] != 0 && n_array[i + 2] != 0) {
-        words_string += 'Hundred and ';
-      } else if (i == 6 && value != 0) {
-        words_string += 'Hundred ';
-      }
-    }
-    words_string = words_string.split('  ').join(' ');
-  }
-
-  var amountInWord = words_string + ' Rupee Only ';
-  console.log('amountInWord', amountInWord);
-
-  console.log('QUERY DATA', invoice);
-  var price = parseInt(data.getJdentBuyer.totalAmount);
-  var gstRatePer = parseInt(data.getJdentBuyer.content);
-  const SGSTPer = gstRatePer / 2;
-  const CGSTPer = gstRatePer / 2;
-  console.log('gstRatePer', gstRatePer);
-
-  var totalGSTAmt = price - price * (100 / (100 + gstRatePer));
-  var originalCost = price - totalGSTAmt;
-  const SGSTAmt = totalGSTAmt / 2;
-  const CGSTAmt = totalGSTAmt / 2;
-
-  console.log('price', price.toFixed(2));
-  console.log('tgstAMt', totalGSTAmt.toFixed(2));
-  console.log('oricost', originalCost.toFixed(2));
-  console.log('SGSTAmt', SGSTAmt.toFixed(2));
-  console.log('CGSTAmt', CGSTAmt.toFixed(2));
+  // deliveryNoteDate = new Date(invoice.deliveryNoteDate);
 
   return (
     <div className='container m-t-20'>
@@ -324,7 +220,7 @@ const UpdateInvoice = ({ match }) => {
                 deliveryNote: deliveryNote
                   ? deliveryNote
                   : invoice.deliveryNote,
-                supplierRef: supplierRef ? supplierRef : invoice.address,
+                supplierRef: supplierRef ? supplierRef : invoice.supplierRef,
                 otherRef: otherRef ? otherRef : invoice.otherRef,
                 buyersOrderNo: buyersOrderNo
                   ? buyersOrderNo
@@ -345,7 +241,7 @@ const UpdateInvoice = ({ match }) => {
                 srNo: srNo ? srNo : invoice.srNo,
                 disriptionOfGoods: disriptionOfGoods
                   ? disriptionOfGoods
-                  : invoice.address,
+                  : invoice.disriptionOfGoods,
                 modelNo: modelNo ? modelNo : invoice.modelNo,
                 sirNo: sirNo ? sirNo : invoice.sirNo,
                 hsnsac: hsnsac ? hsnsac : invoice.hsnsac,
@@ -360,8 +256,9 @@ const UpdateInvoice = ({ match }) => {
                   : invoice.totalAmountInWords,
               },
             });
-            console.log('ON SUBMIT ', invoice);
 
+            history.push('/');
+            // window.location.reload(false);
             notify.show('Invoice was edited successfully', 'success');
           }}
         >
@@ -382,16 +279,23 @@ const UpdateInvoice = ({ match }) => {
                   />
                 </div>
               </div>
-              <div className='field invisible'>
-                <label className='label'>GST %</label>
+
+              <div className='field'>
+                <label className='label'>GST Percentage %</label>
                 <div className='control'>
-                  <input
-                    className='input'
+                  <select
                     name='content'
-                    placeholder='GST %'
-                    defaultValue={invoice.content}
+                    className='input'
+                    value={content}
                     onChange={(e) => setContent(e.target.value)}
-                  ></input>
+                  >
+                    <option defaultValue={gstPercentage}>
+                      {gstPercentage} %
+                    </option>
+                    <option value='5'>5 %</option>
+                    <option value='18'>18 %</option>
+                    <option value='28'>28 %</option>
+                  </select>
                 </div>
               </div>
 
@@ -425,18 +329,34 @@ const UpdateInvoice = ({ match }) => {
                 </div>
               </div>
 
-              <div className='field invisible'>
-                <label className='label'>deliveryNote</label>
+              <div className='field'>
+                <label className='label'>Mode / Terms of Payment</label>
                 <div className='control'>
-                  <input
-                    className='input'
+                  <select
                     name='deliveryNote'
-                    placeholder='deliveryNote'
-                    defaultValue={invoice.deliveryNote}
+                    className='input'
+                    value={deliveryNote}
                     onChange={(e) => setDeliveryNote(e.target.value)}
-                  ></input>
+                  >
+                    <option defaultValue={modeOfPay}>{modeOfPay}</option>
+                    <option value='Cash'>Cash</option>
+                    <option value='Swipe'>Swipe</option>
+                    <option value='Account Transfer by HDFC'>
+                      Account Transfer by HDFC
+                    </option>
+                    <option value='Account Transfer by IDBI'>
+                      Account Transfer by IDBI
+                    </option>
+                    <option value='HDFC BANK LTD'>HDFC BANK LTD</option>
+                    <option value='Bajaj Finance'>Bajaj Finance</option>
+                    <option value='TVS CREDIT SERVICES LTD'>
+                      TVS CREDIT SERVICES LTD
+                    </option>
+                    <option value='Pine Lab Emi'>Pine Lab Emi</option>
+                  </select>
                 </div>
               </div>
+
               <div className='field invisible'>
                 <label className='label'>supplierRef</label>
                 <div className='control'>
@@ -581,6 +501,7 @@ const UpdateInvoice = ({ match }) => {
                 <div className='control'>
                   <DatePicker
                     className='input'
+                    dateFormat='dd/MM/yyy'
                     selected={deliveryNoteDate}
                     showMonthDropdown={true}
                     showYearDropdown={true}
