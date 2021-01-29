@@ -137,17 +137,12 @@ const ListOfInvoice = ({ history }) => {
   const { loading, error, data } = useQuery(BUYERS_QUERY);
 
   function onDelete(row) {
-    // window.confirm('are you sure');
-    // deleteBuyer({ variables: { _id: id } });
-    // notify.show('Note was deleted successfully', 'success');
-    // window.location.reload(false);
-
     if (window.confirm(`Are you sure you want to delete:\r ${row.title}?`)) {
       deleteBuyer({ variables: { _id: row._id } });
       history.push('/');
       notify.show('Note was deleted successfully', 'success');
+      window.location.reload(false);
     }
-    // window.location.reload(false);
   }
 
   const [deleteBuyer] = useMutation(DELETE_INVOICE_QUERY, {
