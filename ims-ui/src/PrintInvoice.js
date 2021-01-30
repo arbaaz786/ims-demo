@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { notify } from 'react-notify-toast';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import logo from './images/jdent.png';
 import moment from 'moment';
@@ -66,12 +65,12 @@ const PrintInvoice = ({ match }) => {
   // set the  result gotten from rhe GraphQL server into the invoice variable.
   console.log('print data', data);
 
-  const invoice = data;
+  // const invoice = data;
 
   var amount = parseInt(data.getJdentBuyer.totalAmount);
 
   var amountToWord = amount;
-  var words = new Array();
+  var words = [];
   words[0] = '';
   words[1] = 'One';
   words[2] = 'Two';
@@ -106,56 +105,65 @@ const PrintInvoice = ({ match }) => {
   var n_length = number.length;
   var words_string = '';
   if (n_length <= 9) {
-    var n_array = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0);
-    var received_n_array = new Array();
-    for (var i = 0; i < n_length; i++) {
-      received_n_array[i] = number.substr(i, 1);
+    var n_array = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var received_n_array = [];
+    for (var m = 0; m < n_length; m++) {
+      received_n_array[m] = number.substr(m, 1);
     }
-    for (var i = 9 - n_length, j = 0; i < 9; i++, j++) {
-      n_array[i] = received_n_array[j];
+
+    for (var p = 9 - n_length, q = 0; p < 9; p++, q++) {
+      n_array[p] = received_n_array[q];
     }
-    for (var i = 0, j = 1; i < 9; i++, j++) {
-      if (i == 0 || i == 2 || i == 4 || i == 7) {
-        if (n_array[i] == 1) {
+
+    for (var x = 0, j = 1; x < 9; x++, j++) {
+      if (x === 0 || x === 2 || x === 4 || x === 7) {
+        if (n_array[XMLHttpRequestUpload] === 1) {
           n_array[j] = 10 + parseInt(n_array[j]);
-          n_array[i] = 0;
+          n_array[x] = 0;
         }
       }
     }
+
     var value = '';
     for (var i = 0; i < 9; i++) {
-      if (i == 0 || i == 2 || i == 4 || i == 7) {
+      if (i === 0 || i === 2 || i === 4 || i === 7) {
         value = n_array[i] * 10;
       } else {
         value = n_array[i];
       }
-      if (value != 0) {
+      if (value !== 0) {
         words_string += words[value] + ' ';
       }
       if (
-        (i == 1 && value != 0) ||
-        (i == 0 && value != 0 && n_array[i + 1] == 0)
+        (i === 1 && value !== 0) ||
+        (i === 0 && value !== 0 && n_array[i + 1] === 0)
       ) {
         words_string += 'Crores ';
       }
       if (
-        (i == 3 && value != 0) ||
-        (i == 2 && value != 0 && n_array[i + 1] == 0)
+        (i === 3 && value !== 0) ||
+        (i === 2 && value !== 0 && n_array[i + 1] === 0)
       ) {
         words_string += 'Lakhs ';
       }
       if (
-        (i == 5 && value != 0) ||
-        (i == 4 && value != 0 && n_array[i + 1] == 0)
+        (i === 5 && value !== 0) ||
+        (i === 4 && value !== 0 && n_array[i + 1] === 0)
       ) {
         words_string += 'Thousand ';
       }
-      if (i == 6 && value != 0 && n_array[i + 1] != 0 && n_array[i + 2] != 0) {
+      if (
+        i === 6 &&
+        value !== 0 &&
+        n_array[i + 1] !== 0 &&
+        n_array[i + 2] !== 0
+      ) {
         words_string += 'Hundred and ';
-      } else if (i == 6 && value != 0) {
+      } else if (i === 6 && value !== 0) {
         words_string += 'Hundred ';
       }
     }
+
     words_string = words_string.split('  ').join(' ');
   }
 

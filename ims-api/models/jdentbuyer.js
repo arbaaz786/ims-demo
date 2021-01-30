@@ -1,102 +1,116 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 // import Float from "mongoose-float";
+import express from 'express';
 var Float = require('mongoose-float').loadType(mongoose);
+var config = require('../config/configFile.js');
 const Schema = mongoose.Schema;
 import autoIncrement from 'mongoose-auto-increment';
- 
-var connection = mongoose.createConnection("mongodb://localhost/newjdent_db");
- 
+const app = express();
+var uri = config.db[app.settings.env];
+// var connection = mongoose.createConnection('mongodb://localhost/newjdent_db');
+
+const connection = mongoose.createConnection(uri, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+});
+
 autoIncrement.initialize(connection);
- 
+
 const JdentBuyerSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   content: {
-    type: String
+    type: String,
   },
   address: {
-    type: String
+    type: String,
   },
   emailId: {
-    type: String
+    type: String,
   },
   contactNo: {
-    type: String
+    type: String,
   },
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   invoiceNo: {
-    type: String
+    type: String,
   },
   deliveryNote: {
-    type: String
+    type: String,
   },
   supplierRef: {
-    type: String
+    type: String,
   },
   otherRef: {
-    type: String
+    type: String,
   },
   buyersOrderNo: {
-    type: String
+    type: String,
   },
   dispatchDocumentNo: {
-    type: String
+    type: String,
   },
   deliveryNoteDate: {
-    type: String
+    type: String,
   },
   dispatchedThrough: {
-    type: String
+    type: String,
   },
   destination: {
-    type: String
+    type: String,
   },
   termsOfDelivery: {
-    type: String
+    type: String,
   },
-  srNo:{
-    type: String
+  srNo: {
+    type: String,
   },
-  disriptionOfGoods:{
-    type: String
+  disriptionOfGoods: {
+    type: String,
   },
-  sirNo:{
-    type: String
+  sirNo: {
+    type: String,
   },
-  modelNo:{
-    type: String
+  modelNo: {
+    type: String,
   },
-  hsnsac:{
-    type: String
+  hsnsac: {
+    type: String,
   },
-  quantity:{
-    type: String
+  quantity: {
+    type: String,
   },
-  rate:{
-    type: String
+  rate: {
+    type: String,
   },
-  per:{
-    type: String
+  per: {
+    type: String,
   },
-  discount:{
-    type: String
+  discount: {
+    type: String,
   },
-  amount:{
-    type: String
+  amount: {
+    type: String,
   },
-  totalAmount:{
-    type: String
+  totalAmount: {
+    type: String,
   },
   totalAmountInWords: {
-    type: String
-  }
+    type: String,
+  },
 });
 
-JdentBuyerSchema.plugin(autoIncrement.plugin, { model: 'jdentbuyer', field: 'invoiceNo', startAt: 1, incrementBy: 1 });
+JdentBuyerSchema.plugin(autoIncrement.plugin, {
+  model: 'jdentbuyer',
+  field: 'invoiceNo',
+  startAt: 1,
+  incrementBy: 1,
+});
 
-export default mongoose.model("jdentbuyer", JdentBuyerSchema);
+export default mongoose.model('jdentbuyer', JdentBuyerSchema);
