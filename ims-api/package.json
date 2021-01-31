@@ -23,7 +23,9 @@
     "mongoose-float": "^1.0.4",
     "nodemon": "^1.19.2",
     "pino-colada": "^2.1.0",
-    "twilio": "^3.55.0"
+    "twilio": "^3.55.0",
+    "winston": "^3.3.3",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

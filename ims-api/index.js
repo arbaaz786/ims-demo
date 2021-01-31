@@ -6,7 +6,8 @@ import schema from './graphql/schema';
 const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
 var config = require('./config/configFile.js');
-// var mongoose = require('mongoose');
+const logger = require('./utils/loggers');
+const xml2js = require('./utils/xmlToJs');
 
 const accountSid = 'AC7a013a504a7e7b29c9eb108ce73b2ba4';
 const authToken = '8b499d93a902e5ad56728d21f4f0f36e';
@@ -18,7 +19,7 @@ const PORT = 4300;
 
 app.use(cors());
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(pino);
 
@@ -35,10 +36,18 @@ mongoose
     useCreateIndex: true,
   })
   .then(() => {
-    console.log(`connection to database established`);
+    // console.log(`connection to database established`);
+    logger.info({
+      level: 'info',
+      message: 'connection to database established.........!',
+    });
   })
   .catch((err) => {
     console.log(`db error ${err.message}`);
+    logger.info({
+      level: 'info',
+      message: 'database error ..! ',
+    });
     process.exit(-1);
   });
 //...
@@ -56,6 +65,8 @@ mongoose
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
 // });
+// var bodyData = '/foo.xml';
+// const XMLDATA = xml2js.convertXMLToJS(bodyData);
 
 app.get('/api/greeting', (req, res) => {
   const name = req.query.name || 'World';
