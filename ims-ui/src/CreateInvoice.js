@@ -142,7 +142,7 @@ const CreateInvoice = withRouter(({ history }) => {
   const [address, setAddress] = useState('');
   const [emailId, setEmailId] = useState('');
   const [contactNo, setContactNo] = useState('');
-  const [invoiceNo] = useState('');
+  const [invoiceNo, setInvoiceNo] = useState('');
   const [deliveryNote, setDeliveryNote] = useState('Choose your option');
   const [supplierRef] = useState('');
   const [otherRef] = useState('');
@@ -168,6 +168,18 @@ const CreateInvoice = withRouter(({ history }) => {
   //const [deliveryNoteDate, setDeliveryNoteDate] = useState(new Date());
   // const [deliveryNoteDate, onChange] = useState(new Date());
   const [deliveryNoteDate, setStartDate] = useState(new Date());
+
+  let [showPaidAmount, setShowPaidAmount] = useState(false);
+
+  function handleChange(event) {
+    if (event.target.value === 'Credit') {
+      setShowPaidAmount(true);
+      setDeliveryNote(event.target.value);
+    } else {
+      setShowPaidAmount(false);
+      setDeliveryNote(event.target.value);
+    }
+  }
 
   const [createBuyer] = useMutation(NEW_INVOICE, {
     update(cache, { data: { createBuyer } }) {
@@ -260,12 +272,28 @@ const CreateInvoice = withRouter(({ history }) => {
                 <div className='control'>
                   <input
                     className='input'
-                    name='srNo'
+                    name='invoiceNo'
                     type='number'
                     placeholder='Invoice No'
-                    value={srNo}
-                    onChange={(e) => setSrNo(e.target.value)}
+                    value={invoiceNo}
+                    onChange={(e) => setInvoiceNo(e.target.value)}
                   />
+                </div>
+              </div>
+
+              <div style={{ display: showPaidAmount ? 'block' : 'none' }}>
+                <div className='field'>
+                  <label className='label'>Paid Amount.</label>
+                  <div className='control'>
+                    <input
+                      className='input'
+                      name='srNo'
+                      type='number'
+                      placeholder='Paid Amount'
+                      value={srNo}
+                      onChange={(e) => setSrNo(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -333,9 +361,11 @@ const CreateInvoice = withRouter(({ history }) => {
                     name='deliveryNote'
                     className='input'
                     defaultValue={deliveryNote}
-                    onChange={(e) => setDeliveryNote(e.target.value)}
+                    onChange={handleChange}
+                    // onChange={(e) => setDeliveryNote(e.target.value)}
                   >
                     <option value=''>Choose your option</option>
+                    <option value='Credit'>Credit</option>
                     <option value='Cash'>Cash</option>
                     <option value='Swipe'>Swipe</option>
                     <option value='Account Transfer by HDFC'>

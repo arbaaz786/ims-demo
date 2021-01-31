@@ -316,7 +316,7 @@ const PrintInvoice = ({ match }) => {
           <tbody>
             <tr>
               <th>Sr.no</th>
-              <th>Disription of Goods</th>
+              <th>Discription of Goods</th>
               <th>HSN/SAC</th>
               <th>Qty</th>
               <th>Rate</th>

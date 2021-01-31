@@ -94,12 +94,20 @@ const ListOfInvoice = ({ history }) => {
       width: '100px',
     },
     {
+      name: 'Balance Amount',
+      selector: 'balanceAmount',
+      sortable: true,
+      width: '100px',
+    },
+    {
       name: 'Edit',
       button: true,
       width: '75px',
       cell: (row) => (
         <button>
-          <a href={` updateInvoice/${row.deliveryNoteDate}/${row._id}`}>
+          <a
+            href={` updateInvoice/${row.deliveryNoteDate}/${row.deliveryNote}/${row._id}`}
+          >
             <i className='fas fa-edit'></i>
           </a>
         </button>
@@ -123,7 +131,7 @@ const ListOfInvoice = ({ history }) => {
       width: '75px',
       cell: (row) => (
         <button
-          className='button is-link is-small'
+          className='button is-danger is-link is-small'
           onClick={(e) => {
             e.preventDefault();
             onDelete(row);
@@ -165,25 +173,50 @@ const ListOfInvoice = ({ history }) => {
   let oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
   console.log('columns', columns);
-  console.log('listOfInvoice ', listOfInvoice);
 
   var arrOfObj = listOfInvoice;
 
   var NewListOfInvoice = arrOfObj.map(function (el) {
     let billDate = el.deliveryNoteDate;
     let currentDate = el.date;
+    let paidAmount = el.srNo;
+    let modeOfpay = el.deliveryNote;
+    let balanceAmount;
+    if (modeOfpay === 'Credit') {
+      let totalAmount = el.totalAmount;
+      balanceAmount = totalAmount - paidAmount;
+    }
+
     let balanceDays = Math.round(
       Math.abs((new Date(currentDate) - new Date(billDate)) / oneDay)
     );
+
     var o = Object.assign({}, el);
     o.balanceDays = balanceDays;
+    o.balanceAmount = balanceAmount;
     return o;
   });
+
+  console.log('listOfInvoice ', NewListOfInvoice);
 
   const tableData = {
     columns,
     data: NewListOfInvoice,
   };
+
+  const conditionalRowStyles = [
+    {
+      when: (row) => row.balanceDays > 30,
+      style: {
+        backgroundColor: 'red',
+        color: 'white',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    },
+    // You can also pass a callback to style for additional customization
+  ];
 
   return (
     <div className='tablebody'>
@@ -196,6 +229,7 @@ const ListOfInvoice = ({ history }) => {
           defaultSortAsc={false}
           pagination
           highlightOnHover
+          conditionalRowStyles={conditionalRowStyles}
         />
       </DataTableExtensions>
     </div>

@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import graphlHTTP from 'express-graphql';
 import mongoose from 'mongoose';
-import schema from './schema';
+import schema from './graphql/schema';
 const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
 var config = require('./config/configFile.js');

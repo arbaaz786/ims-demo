@@ -139,6 +139,13 @@ const UpdateInvoice = ({ match, history }) => {
   // console.log('UpdateInvoice--------->', match);
 
   let invoiceDate = new Date(match.params.deliveryNoteDate);
+  let modeOfPay = match.params.deliveryNote;
+  let isPaidAmountShow = false;
+  if (modeOfPay === 'Credit') {
+    isPaidAmountShow = true;
+  } else {
+    isPaidAmountShow = false;
+  }
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -171,6 +178,7 @@ const UpdateInvoice = ({ match, history }) => {
   const [amount, setAmount] = useState('');
   const [totalAmount, setTotalAmount] = useState('');
   const [totalAmountInWords, setTotalAmountInWords] = useState('');
+  const [showPaidAmount, setShowPaidAmount] = useState(isPaidAmountShow);
 
   // "_id" : ObjectId("5ff3469568bcfb5d5e358834")
 
@@ -190,10 +198,16 @@ const UpdateInvoice = ({ match, history }) => {
   const invoice = data.getJdentBuyer;
 
   let gstPercentage = invoice.content;
-  let modeOfPay = invoice.deliveryNote;
-  // let invoiceDate = new Date(invoice.deliveryNoteDate);
 
-  // deliveryNoteDate = new Date(invoice.deliveryNoteDate);
+  function handleChange(event) {
+    if (event.target.value === 'Credit') {
+      setShowPaidAmount(true);
+      setDeliveryNote(event.target.value);
+    } else {
+      setShowPaidAmount(false);
+      setDeliveryNote(event.target.value);
+    }
+  }
 
   return (
     <div className='container m-t-20'>
@@ -329,7 +343,7 @@ const UpdateInvoice = ({ match, history }) => {
                 </div>
               </div>
 
-              <div className='field'>
+              {/* <div className='field'>
                 <label className='label'>Mode / Terms of Payment</label>
                 <div className='control'>
                   <select
@@ -339,6 +353,36 @@ const UpdateInvoice = ({ match, history }) => {
                     onChange={(e) => setDeliveryNote(e.target.value)}
                   >
                     <option defaultValue={modeOfPay}>{modeOfPay}</option>
+                    <option value='Cash'>Cash</option>
+                    <option value='Swipe'>Swipe</option>
+                    <option value='Account Transfer by HDFC'>
+                      Account Transfer by HDFC
+                    </option>
+                    <option value='Account Transfer by IDBI'>
+                      Account Transfer by IDBI
+                    </option>
+                    <option value='HDFC BANK LTD'>HDFC BANK LTD</option>
+                    <option value='Bajaj Finance'>Bajaj Finance</option>
+                    <option value='TVS CREDIT SERVICES LTD'>
+                      TVS CREDIT SERVICES LTD
+                    </option>
+                    <option value='Pine Lab Emi'>Pine Lab Emi</option>
+                  </select>
+                </div>
+              </div> */}
+
+              <div className='field'>
+                <label className='label'>Mode / Terms of Payment</label>
+                <div className='control'>
+                  <select
+                    name='deliveryNote'
+                    className='input'
+                    defaultValue={deliveryNote}
+                    onChange={handleChange}
+                    // onChange={(e) => setDeliveryNote(e.target.value)}
+                  >
+                    <option defaultValue={modeOfPay}>{modeOfPay}</option>
+                    <option value='Credit'>Credit</option>
                     <option value='Cash'>Cash</option>
                     <option value='Swipe'>Swipe</option>
                     <option value='Account Transfer by HDFC'>
@@ -484,18 +528,7 @@ const UpdateInvoice = ({ match, history }) => {
                   ></input>
                 </div>
               </div>
-              <div className='field invisible'>
-                <label className='label'>SR</label>
-                <div className='control'>
-                  <input
-                    className='input'
-                    name='srNo'
-                    placeholder='srNo'
-                    defaultValue={invoice.srNo}
-                    onChange={(e) => setSRNumber(e.target.value)}
-                  ></input>
-                </div>
-              </div>
+
               <div className='field'>
                 <label className='label'> Date</label>
                 <div className='control'>
@@ -651,6 +684,21 @@ const UpdateInvoice = ({ match, history }) => {
                     defaultValue={totalAmountInWords}
                     onChange={(e) => setTotalAmountInWords(e.target.value)}
                   ></input>
+                </div>
+              </div>
+
+              <div style={{ display: showPaidAmount ? 'block' : 'none' }}>
+                <div className='field '>
+                  <label className='label'>Paid Amount</label>
+                  <div className='control'>
+                    <input
+                      className='input'
+                      name='srNo'
+                      placeholder='Paid Amount'
+                      defaultValue={invoice.srNo}
+                      onChange={(e) => setSRNumber(e.target.value)}
+                    ></input>
+                  </div>
                 </div>
               </div>
             </div>
