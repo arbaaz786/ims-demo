@@ -76,16 +76,22 @@ const ListOfInvoice = ({ history }) => {
       width: '200px',
     },
     {
+      name: 'Mode of Payment',
+      selector: 'deliveryNote',
+      sortable: true,
+      width: '200px',
+    },
+    {
       name: 'ContactNo',
       selector: 'contactNo',
       sortable: true,
     },
     {
       name: 'Date',
-      selector: 'date',
+      selector: 'deliveryNoteDate',
       sortable: true,
       width: '175px',
-      cell: (row) => moment(row.date).format('lll'),
+      cell: (row) => moment(row.deliveryNoteDate).format('lll'),
     },
     {
       name: 'Balance Days',
@@ -106,7 +112,9 @@ const ListOfInvoice = ({ history }) => {
       cell: (row) => (
         <button>
           <a
-            href={` updateInvoice/${row.deliveryNoteDate}/${row.deliveryNote}/${row._id}`}
+            href={` updateInvoice/${row.srNo ? row.srNo : 'Nill'}/${
+              row.totalAmount
+            }/${row.deliveryNoteDate}/${row.deliveryNote}/${row._id}`}
           >
             <i className='fas fa-edit'></i>
           </a>
@@ -227,7 +235,7 @@ const ListOfInvoice = ({ history }) => {
     {
       when: (row) => row.totalAmount === row.srNo,
       style: {
-        backgroundColor: 'green',
+        backgroundColor: 'orange',
         color: 'white',
         '&:hover': {
           cursor: 'pointer',

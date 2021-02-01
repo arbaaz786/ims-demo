@@ -136,23 +136,19 @@ const UPDATE_INVOICE = gql`
 `;
 
 const UpdateInvoice = ({ match, history }) => {
-  console.log('UpdateInvoice--------->', match);
-
   let invoiceDate = new Date(match.params.deliveryNoteDate);
   let modeOfPay = match.params.deliveryNote;
-  // let totalAmountValue = match.params.totalAmount;
-  // let paidAmount = match.params.srNo;
-
+  let totalAmountValue = match.params.totalAmount;
+  let paidAmount = match.params.srNo;
   let isPaidAmountShow = false;
   if (modeOfPay === 'Credit') {
-    isPaidAmountShow = true;
-    // if (totalAmountValue <= paidAmount) {
-    //   isPaidAmountShow = true;
-    // } else {
-    //   isPaidAmountShow = false;
-    // }
-  } else {
-    isPaidAmountShow = false;
+    if (paidAmount === totalAmountValue) {
+      isPaidAmountShow = false;
+    } else if (paidAmount < totalAmountValue) {
+      isPaidAmountShow = true;
+    } else {
+      isPaidAmountShow = false;
+    }
   }
 
   const [title, setTitle] = useState('');
