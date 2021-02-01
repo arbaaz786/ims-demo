@@ -82,10 +82,10 @@ const ListOfInvoice = ({ history }) => {
     },
     {
       name: 'Date',
-      selector: 'deliveryNoteDate',
+      selector: 'date',
       sortable: true,
       width: '175px',
-      cell: (row) => moment(row.deliveryNoteDate).format('lll'),
+      cell: (row) => moment(row.date).format('lll'),
     },
     {
       name: 'Balance Days',
@@ -182,20 +182,27 @@ const ListOfInvoice = ({ history }) => {
     let paidAmount = el.srNo;
     let modeOfpay = el.deliveryNote;
     let balanceAmount = '';
+    let totalAmount = el.totalAmount;
+    let balanceDays = '';
     var o = Object.assign({}, el);
     if (modeOfpay === 'Credit') {
-      let totalAmount = el.totalAmount;
       balanceAmount = totalAmount - paidAmount;
 
-      let balanceDays = Math.round(
+      balanceDays = Math.round(
         Math.abs((new Date() - new Date(billDate)) / oneDay)
       );
 
       if (balanceDays >= '30') {
         o.balanceDays = balanceDays;
       }
+      if (totalAmount === paidAmount) {
+        o.balanceDays = '';
+      }
+      o.balanceAmount = balanceAmount;
+    } else {
+      o.balanceAmount = balanceAmount;
     }
-    o.balanceAmount = balanceAmount;
+
     return o;
   });
 
@@ -211,6 +218,16 @@ const ListOfInvoice = ({ history }) => {
       when: (row) => row.balanceDays > 30,
       style: {
         backgroundColor: 'red',
+        color: 'white',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    },
+    {
+      when: (row) => row.totalAmount === row.srNo,
+      style: {
+        backgroundColor: 'green',
         color: 'white',
         '&:hover': {
           cursor: 'pointer',

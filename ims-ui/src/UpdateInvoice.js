@@ -136,13 +136,21 @@ const UPDATE_INVOICE = gql`
 `;
 
 const UpdateInvoice = ({ match, history }) => {
-  // console.log('UpdateInvoice--------->', match);
+  console.log('UpdateInvoice--------->', match);
 
   let invoiceDate = new Date(match.params.deliveryNoteDate);
   let modeOfPay = match.params.deliveryNote;
+  // let totalAmountValue = match.params.totalAmount;
+  // let paidAmount = match.params.srNo;
+
   let isPaidAmountShow = false;
   if (modeOfPay === 'Credit') {
     isPaidAmountShow = true;
+    // if (totalAmountValue <= paidAmount) {
+    //   isPaidAmountShow = true;
+    // } else {
+    //   isPaidAmountShow = false;
+    // }
   } else {
     isPaidAmountShow = false;
   }
@@ -196,6 +204,7 @@ const UpdateInvoice = ({ match, history }) => {
   // set the  result gotten from rhe GraphQL server into the note variable.
 
   const invoice = data.getJdentBuyer;
+  console.log(invoice);
 
   let gstPercentage = invoice.content;
 
@@ -206,6 +215,18 @@ const UpdateInvoice = ({ match, history }) => {
     } else {
       setShowPaidAmount(false);
       setDeliveryNote(event.target.value);
+    }
+  }
+
+  function onPaidChange(event) {
+    var slectedAmt = parseInt(event.target.value);
+    var existingAmount = parseInt(invoice.srNo);
+    var totalAmount = parseInt(invoice.totalAmount);
+    console.log(existingAmount);
+    console.log(totalAmount);
+    if (existingAmount <= totalAmount) {
+      var updatedPaidAmount = existingAmount + slectedAmt;
+      setSRNumber(JSON.stringify(updatedPaidAmount));
     }
   }
 
@@ -696,7 +717,9 @@ const UpdateInvoice = ({ match, history }) => {
                       name='srNo'
                       placeholder='Paid Amount'
                       defaultValue={invoice.srNo}
-                      onChange={(e) => setSRNumber(e.target.value)}
+                      // onChange={onPaidChange}
+                      onKeyUp={onPaidChange}
+                      // onChange={(e) => setSRNumber(e.target.value)}
                     ></input>
                   </div>
                 </div>
