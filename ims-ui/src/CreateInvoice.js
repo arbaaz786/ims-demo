@@ -365,7 +365,6 @@ const CreateInvoice = withRouter(({ history }) => {
                     // onChange={(e) => setDeliveryNote(e.target.value)}
                   >
                     <option value=''>Choose your option</option>
-                    <option value='Credit'>Credit</option>
                     <option value='Cash'>Cash</option>
                     <option value='Swipe'>Swipe</option>
                     <option value='Account Transfer by HDFC'>
@@ -380,6 +379,7 @@ const CreateInvoice = withRouter(({ history }) => {
                       TVS CREDIT SERVICES LTD
                     </option>
                     <option value='Pine Lab Emi'>Pine Lab Emi</option>
+                    <option value='Credit'>Credit</option>
                   </select>
                 </div>
               </div>

@@ -7,6 +7,7 @@ import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { notify } from 'react-notify-toast';
 import moment from 'moment';
+import Blink from 'react-blink-text';
 
 const BUYERS_QUERY = gql`
   {
@@ -79,7 +80,7 @@ const ListOfInvoice = ({ history }) => {
       name: 'Mode of Payment',
       selector: 'deliveryNote',
       sortable: true,
-      width: '200px',
+      width: '100px',
     },
     {
       name: 'ContactNo',
@@ -183,30 +184,34 @@ const ListOfInvoice = ({ history }) => {
   console.log('columns', columns);
 
   var arrOfObj = listOfInvoice;
+  var TotalOutStandingAmount = 0;
 
   var NewListOfInvoice = arrOfObj.map(function (el) {
     let billDate = el.deliveryNoteDate;
     // let currentDate = el.date;
     let paidAmount = el.srNo;
+    console.log(el.srNo);
     let modeOfpay = el.deliveryNote;
     let balanceAmount = '';
     let totalAmount = el.totalAmount;
     let balanceDays = '';
+
     var o = Object.assign({}, el);
     if (modeOfpay === 'Credit') {
       balanceAmount = totalAmount - paidAmount;
-
+      console.log('balanceAmount', balanceAmount);
+      TotalOutStandingAmount += parseInt(balanceAmount);
       balanceDays = Math.round(
         Math.abs((new Date() - new Date(billDate)) / oneDay)
       );
 
       if (balanceDays >= '30') {
-        o.balanceDays = balanceDays;
+        o.balanceDays = balanceDays; // when greater than 30 days
       }
       if (totalAmount === paidAmount) {
         o.balanceDays = '';
       }
-      o.balanceAmount = balanceAmount;
+      o.balanceAmount = balanceAmount; // when equal days
     } else {
       o.balanceAmount = balanceAmount;
     }
@@ -215,6 +220,7 @@ const ListOfInvoice = ({ history }) => {
   });
 
   console.log('listOfInvoice ', NewListOfInvoice);
+  console.log('TotalOutStandingAmount ', TotalOutStandingAmount);
 
   const tableData = {
     columns,
@@ -247,7 +253,11 @@ const ListOfInvoice = ({ history }) => {
 
   return (
     <div className='tablebody'>
-      <DataTableExtensions {...tableData} className='data-table-extensions'>
+      <DataTableExtensions
+        {...tableData}
+        title={TotalOutStandingAmount}
+        className='data-table-extensions'
+      >
         <DataTable
           columns={columns}
           data={listOfInvoice}
@@ -259,6 +269,13 @@ const ListOfInvoice = ({ history }) => {
           conditionalRowStyles={conditionalRowStyles}
         />
       </DataTableExtensions>
+      <div className='blink-box'>
+        <Blink
+          color='white'
+          text={'Outstanding balance ' + TotalOutStandingAmount}
+          fontSize={25}
+        ></Blink>
+      </div>
     </div>
   );
 };

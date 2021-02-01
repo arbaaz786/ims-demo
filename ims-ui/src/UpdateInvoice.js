@@ -220,9 +220,14 @@ const UpdateInvoice = ({ match, history }) => {
     var totalAmount = parseInt(invoice.totalAmount);
     console.log(existingAmount);
     console.log(totalAmount);
-    if (existingAmount <= totalAmount) {
+
+    if (slectedAmt <= totalAmount) {
       var updatedPaidAmount = existingAmount + slectedAmt;
+
       setSRNumber(JSON.stringify(updatedPaidAmount));
+    } else {
+      alert('Invalid AMount');
+      setSRNumber(JSON.stringify(existingAmount));
     }
   }
 
@@ -289,7 +294,7 @@ const UpdateInvoice = ({ match, history }) => {
             });
 
             history.push('/');
-            // window.location.reload(false);
+            window.location.reload(false);
             notify.show('Invoice was edited successfully', 'success');
           }}
         >
@@ -399,7 +404,6 @@ const UpdateInvoice = ({ match, history }) => {
                     // onChange={(e) => setDeliveryNote(e.target.value)}
                   >
                     <option defaultValue={modeOfPay}>{modeOfPay}</option>
-                    <option value='Credit'>Credit</option>
                     <option value='Cash'>Cash</option>
                     <option value='Swipe'>Swipe</option>
                     <option value='Account Transfer by HDFC'>
@@ -414,6 +418,12 @@ const UpdateInvoice = ({ match, history }) => {
                       TVS CREDIT SERVICES LTD
                     </option>
                     <option value='Pine Lab Emi'>Pine Lab Emi</option>
+                    <option
+                      style={{ display: showPaidAmount ? 'block' : 'none' }}
+                      value='Credit'
+                    >
+                      Credit
+                    </option>
                   </select>
                 </div>
               </div>
@@ -713,6 +723,7 @@ const UpdateInvoice = ({ match, history }) => {
                       name='srNo'
                       placeholder='Paid Amount'
                       defaultValue={invoice.srNo}
+                      size={invoice.totalAmount}
                       // onChange={onPaidChange}
                       onKeyUp={onPaidChange}
                       // onChange={(e) => setSRNumber(e.target.value)}

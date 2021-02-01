@@ -145,3 +145,9 @@ code {
 
   color: #ffffff;
 }
+
+.blink-box {
+  border: aqua;
+  background: rgb(61, 61, 255);
+  text-align: center;
+}
