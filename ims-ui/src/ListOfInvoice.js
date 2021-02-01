@@ -178,21 +178,23 @@ const ListOfInvoice = ({ history }) => {
 
   var NewListOfInvoice = arrOfObj.map(function (el) {
     let billDate = el.deliveryNoteDate;
-    let currentDate = el.date;
+    // let currentDate = el.date;
     let paidAmount = el.srNo;
     let modeOfpay = el.deliveryNote;
-    let balanceAmount;
+    let balanceAmount = '';
+    var o = Object.assign({}, el);
     if (modeOfpay === 'Credit') {
       let totalAmount = el.totalAmount;
       balanceAmount = totalAmount - paidAmount;
+
+      let balanceDays = Math.round(
+        Math.abs((new Date() - new Date(billDate)) / oneDay)
+      );
+
+      if (balanceDays >= '30') {
+        o.balanceDays = balanceDays;
+      }
     }
-
-    let balanceDays = Math.round(
-      Math.abs((new Date(currentDate) - new Date(billDate)) / oneDay)
-    );
-
-    var o = Object.assign({}, el);
-    o.balanceDays = balanceDays;
     o.balanceAmount = balanceAmount;
     return o;
   });
