@@ -214,7 +214,20 @@ const UpdateInvoice = ({ match, history }) => {
     }
   }
 
+  function handleBlur(event) {
+    var slectedAmt = parseInt(event.target.value);
+    var existingAmount = parseInt(invoice.srNo);
+    var totalAmount = parseInt(invoice.totalAmount);
+    var update = slectedAmt + existingAmount;
+
+    if (update > totalAmount) {
+      alert('please check amount');
+    } else {
+    }
+  }
+
   function onPaidChange(event) {
+    console.log('event', event.key);
     var slectedAmt = parseInt(event.target.value);
     var existingAmount = parseInt(invoice.srNo);
     var totalAmount = parseInt(invoice.totalAmount);
@@ -223,10 +236,9 @@ const UpdateInvoice = ({ match, history }) => {
 
     if (slectedAmt <= totalAmount) {
       var updatedPaidAmount = existingAmount + slectedAmt;
-
       setSRNumber(JSON.stringify(updatedPaidAmount));
     } else {
-      alert('Invalid AMount');
+      notify.show('Invalid Amount  entered', 'warning');
       setSRNumber(JSON.stringify(existingAmount));
     }
   }
@@ -723,9 +735,9 @@ const UpdateInvoice = ({ match, history }) => {
                       name='srNo'
                       placeholder='Paid Amount'
                       defaultValue={invoice.srNo}
-                      size={invoice.totalAmount}
                       // onChange={onPaidChange}
                       onKeyUp={onPaidChange}
+                      onBlur={handleBlur}
                       // onChange={(e) => setSRNumber(e.target.value)}
                     ></input>
                   </div>

@@ -7,7 +7,8 @@ import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { notify } from 'react-notify-toast';
 import moment from 'moment';
-import Blink from 'react-blink-text';
+// import Blink from 'react-blink-text';
+import { PieChart } from 'react-minimal-pie-chart';
 
 const BUYERS_QUERY = gql`
   {
@@ -185,6 +186,8 @@ const ListOfInvoice = ({ history }) => {
 
   var arrOfObj = listOfInvoice;
   var TotalOutStandingAmount = 0;
+  // var ActualAmount = 0;
+  var totalCollection = 0;
 
   var NewListOfInvoice = arrOfObj.map(function (el) {
     let billDate = el.deliveryNoteDate;
@@ -200,7 +203,11 @@ const ListOfInvoice = ({ history }) => {
     if (modeOfpay === 'Credit') {
       balanceAmount = totalAmount - paidAmount;
       console.log('balanceAmount', balanceAmount);
+
       TotalOutStandingAmount += parseInt(balanceAmount);
+      // ActualAmount += parseInt(totalAmount);
+      totalCollection += parseInt(paidAmount);
+
       balanceDays = Math.round(
         Math.abs((new Date() - new Date(billDate)) / oneDay)
       );
@@ -221,6 +228,27 @@ const ListOfInvoice = ({ history }) => {
 
   console.log('listOfInvoice ', NewListOfInvoice);
   console.log('TotalOutStandingAmount ', TotalOutStandingAmount);
+
+  const dataMock = [
+    {
+      title: 'Total Outstanding Amount',
+      value: TotalOutStandingAmount,
+      color: 'orange',
+    },
+    {
+      title: 'Total Collection',
+      value: totalCollection,
+      color: '#3273dc',
+    },
+    // { title: 'ActualAmount', value: ActualAmount, color: 'Blue' },
+  ];
+
+  const defaultLabelStyle = {
+    fontSize: '5px',
+    fontFamily: 'sans-serif',
+  };
+
+  const shiftSize = 7;
 
   const tableData = {
     columns,
@@ -253,11 +281,7 @@ const ListOfInvoice = ({ history }) => {
 
   return (
     <div className='tablebody'>
-      <DataTableExtensions
-        {...tableData}
-        title={TotalOutStandingAmount}
-        className='data-table-extensions'
-      >
+      <DataTableExtensions {...tableData} className='data-table-extensions'>
         <DataTable
           columns={columns}
           data={listOfInvoice}
@@ -269,13 +293,28 @@ const ListOfInvoice = ({ history }) => {
           conditionalRowStyles={conditionalRowStyles}
         />
       </DataTableExtensions>
-      <div className='blink-box'>
+      <div>
+        <PieChart
+          data={dataMock}
+          radius={PieChart.defaultProps.radius - shiftSize}
+          // segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
+          label={({ dataEntry }) => dataEntry.value}
+          style={{ height: '300px' }}
+          labelStyle={{
+            ...defaultLabelStyle,
+          }}
+          // totalValue={ActualAmount}
+          // lineWidth={15}
+          // paddingAngle={5}
+        />
+      </div>
+      {/* <div className='blink-box'>
         <Blink
           color='white'
           text={'Outstanding balance ' + TotalOutStandingAmount}
           fontSize={25}
         ></Blink>
-      </div>
+      </div> */}
     </div>
   );
 };
