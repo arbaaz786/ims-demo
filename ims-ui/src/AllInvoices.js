@@ -4,6 +4,8 @@ import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 // import { notify } from 'react-notify-toast';
 import DataTable from 'react-data-table-component';
+
+const generatePdf = require('../../utils/generatePdf');
 // import differenceBy from 'lodash.differenceby';
 
 // import moment from 'moment';

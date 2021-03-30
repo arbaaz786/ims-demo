@@ -38,9 +38,6 @@ function App() {
             {/* <Link to='/' className='navbar-item'>
               All Notes
             </Link> */}
-            {/* <Link to='/' className='navbar-item'>
-              All Notes
-            </Link> */}
             {/* <Link to="/newentry" className="navbar-item">
               New Enrty
             </Link> */}

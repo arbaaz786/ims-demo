@@ -2,7 +2,9 @@ import cors from 'cors';
 import express from 'express';
 import graphlHTTP from 'express-graphql';
 import mongoose from 'mongoose';
+//import schema from './graphql/GraphQL';
 import schema from './graphql/schema';
+import generatePdf from './utils/GeneratePdf';
 const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
 var config = require('./config/configFile.js');
@@ -72,6 +74,21 @@ app.get('/api/greeting', (req, res) => {
   const name = req.query.name || 'World';
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
+});
+
+app.post('/api/generatePdf64', (req, res) => {
+  console.log(req.body);
+  res.header('Content-Type', 'application/json');
+  generatePdf
+    .generatePdf('Invoice NO')
+    .then(async (pdfBase64) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify({ pdf: pdfBase64 }));
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(JSON.stringify({ success: false }));
+    });
 });
 
 app.post('/api/messages', (req, res) => {

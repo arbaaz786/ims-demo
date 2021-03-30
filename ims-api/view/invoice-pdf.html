@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+         .word-brak-css{
+                                width: 100%;
+                                background-color: #eee;
+                                opacity: 1;word-break: break-word;
+                                padding: 6px 1px 6px 0px !important;
+                                height: auto;
+                            }
+        .jumbotron {
+            padding: 20px;
+            margin: 0px;
+        }
+
+        .no-padding {
+            padding: 0px;
+        }
+
+        body * {
+            font-size: 10px !important;
+        }
+
+        input,
+        select {
+            height: 25px!important;
+        }
+
+        .form-control {
+            display: block;
+                float: right;
+                border:none;
+                    margin-top: -5px;
+                    padding: 0px;
+        }
+
+        label {
+            font-size: 10px !important
+        }
+        .form-uppercase input, .word-brak-span{
+    text-transform: uppercase;
+}
+        input{
+            color:grey;
+        }
+
+        .row{
+            margin-top:4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper" class="container container-fluid" style="padding: 20px;">
+        <div class="jumbotron" style="background:#EEE" style="margin: 0px;">
+            <div class="row">
+                <div class="logo" style="margin-left: 20px;">
+                    <img src="https://logos-download.com/wp-content/uploads/2016/10/icici_bank_logo_symbol.png" style="width: 160px;max-height: 100px;">
+                </div>
+                <div style="float: right;font-size: 20px  !important">GST INVOICE</div>
+            </div>
+            <div style="float: right;font-size: 20px">Appl No. {{options.appNo}}</div>
+        </div>
+        <div class="" id="content" style="margin-top:20px;">
+                <div class="row">
+                    <div style="font-size: 16px !important;font-weight: 400 !important;margin-bottom: 10px;">Personal Details</div>
+                    <div class="col-xs-12 no-padding">
+                        <div class="col-xs-4">
+                            <div class="form-group form-horizontal">
+                                <label for="fusr">Full Name </label>
+                                <input readonly="true" type="text" class="form-control" value="{{options.date}}" style="border:none">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group form-horizontal">
+                                <label for="dob">Date of Birth </label>
+                                <input readonly="true" type="text" class="form-control" value="{{options.dob}}">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="dob">Gender </label>
+                                <input readonly="true" type="text" class="form-control" value="{{options.dob}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 no-padding">
+
+                        <div class="col-xs-4">
+                            <div class="form-group form-horizontal">
+                                <label for="dob">Phone Number </label>
+                                <input readonly="true" type="text" class="form-control" value="+91{{options.contactNo}}">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group form-horizontal">
+                                <label for="dob">Email ID </label>
+                                <input readonly="true" type="text" class="form-control" value="{{options.contactNo}}">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group form-horizontal">
+                                <label for="dob">PAN Number </label>
+                                <input readonly="true" type="text" class="form-control" value="{{options.contactNo}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="row">
+                    <div style="font-size: 16px !important;font-weight: 400 !important;margin-bottom: 10px;">Investments Details</div>
+                    <div class="col-xs-12 no-padding">
+                        <div class="col-xs-4">
+                            <div class="form-group form-horizontal">
+                                <label for="fusr">FD Year</label>
+                                <input readonly="true" type="text" class="form-control" value="{{options.contactNo}}">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                                <div class="form-group form-horizontal">
+                                    <label for="dob">FD Month</label>
+                                    <input readonly="true" type="text" class="form-control" value="{{options.contactNo}}">
+                                </div>
+                              
+                            </div>
+                            <div class="col-xs-4">
+                                    <div class="form-group form-horizontal">
+                                        <label for="dob">Employee Referral Number</label>
+                                        <input readonly="true" type="text" class="form-control" value="{{options.contactNo}}">
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+        
+                    <div class="row">
+                            <div class="col-xs-12 no-padding">
+                                    <div class="col-xs-4">
+                                            <div class="form-group form-horizontal">
+                                                <label for="dob">ICICI Employee</label>
+                                                <input readonly="true" type="text" class="form-control" value="{{options.contactNo}}">
+                                            </div>
+                                        </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group form-horizontal">
+                                        <label for="dob">FD Amount</label>
+                                        <input readonly="true" type="text" class="form-control" value="{{options.contactNo}}">
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group form-horizontal">
+                                        <label for="dob">FD Tenure</label>
+                                        <input readonly="true" type="text" class="form-control" value="{{options.contactNo}}">
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+
+                  <div class="row">
+                    <div class="col-xs-12 no-padding">
+
+                        <div class="col-xs-4">
+                            <div class="form-group form-horizontal">
+                                <label for="dob">FD Maturity Type</label>
+                                <input readonly="true" type="text" class="form-control" value="{{options.contactNo}}">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group form-horizontal">
+                                <label for="dob">FD Renew</label>
+                                <input readonly="true" type="text" class="form-control" value="{{options.contactNo}}">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group form-horizontal">
+                                <label for="dob">FD Credit Savings</label>
+                                <input readonly="true" type="text" class="form-control" value="{{options.contactNo}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

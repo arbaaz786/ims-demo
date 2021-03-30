@@ -253,6 +253,8 @@ const ListOfInvoice = ({ history }) => {
   const tableData = {
     columns,
     data: NewListOfInvoice,
+    print: false,
+    export: false,
   };
 
   const conditionalRowStyles = [
@@ -279,18 +281,66 @@ const ListOfInvoice = ({ history }) => {
     // You can also pass a callback to style for additional customization
   ];
 
+  const handleChange = (state) => {
+    // You can use setState or dispatch with something like Redux so we can use the retrieved data
+    console.log('Selected Rows: ', state.selectedRows);
+    let printList = state.selectedRows;
+    console.log('len Rows: ', printList.length);
+
+    if (printList.length != 0) {
+      var url = new URL('http://localhost:4300/api/generatePdf64'),
+        params = printList;
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((pdfData) => {
+          console.log(pdfData);
+          // let objectURL = URL.createObjectURL(myBlob);
+          // let image = document.createElement('img');
+          // image.src = objectURL;
+          // document.body.appendChild(image);
+        })
+        .catch((e) => {
+          console.log(
+            'There has been a problem with your fetch operation: ' + e.message
+          );
+        });
+    }
+
+    //<a href={`printinvoice/${printList[i]._id}`}></a>;
+    // var pages = ['page1.pdf', 'page2.pdf', 'page3.pdf'];
+    // for (var i = 0; i < printList.length; i++) {
+    //   var oWindow = window.open(printList[i], 'print');
+    //   oWindow.print();
+    //   oWindow.close();
+    // }
+  };
+
   return (
     <div className='tablebody'>
       <DataTableExtensions {...tableData} className='data-table-extensions'>
         <DataTable
-          columns={columns}
-          data={listOfInvoice}
+          // columns={columns}
+          // data={listOfInvoice}
+
           noHeader
           defaultSortField='invoiceNo'
           defaultSortAsc={false}
           pagination
           highlightOnHover
           conditionalRowStyles={conditionalRowStyles}
+          selectableRows // add for checkbox selection
+          onSelectedRowsChange={handleChange}
         />
       </DataTableExtensions>
       <div>

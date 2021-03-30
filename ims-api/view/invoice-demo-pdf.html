@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .word-brak-css {
+        width: 100%;
+        background-color: #eee;
+        opacity: 1;
+        word-break: break-word;
+        padding: 6px 1px 6px 0px !important;
+        height: auto;
+      }
+      .jumbotron {
+        padding: 20px;
+        margin: 0px;
+      }
+
+      .no-padding {
+        padding: 0px;
+      }
+
+      body * {
+        font-size: 10px !important;
+      }
+
+      input,
+      select {
+        height: 25px !important;
+      }
+
+      .form-control {
+        display: block;
+        float: right;
+        border: none;
+        margin-top: -5px;
+        padding: 0px;
+      }
+
+      label {
+        font-size: 10px !important;
+      }
+      .form-uppercase input,
+      .word-brak-span {
+        text-transform: uppercase;
+      }
+      input {
+        color: grey;
+      }
+
+      .row {
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div className="container m-t-20">
+      <div id="printme" className="newnote-page m-t-40">
+        <table border="1px" width="100%" id="cssTable">
+          <caption>
+            GST Invoice
+          </caption>
+          <tbody>
+            <tr>
+              <td rowspan="4" text-align="center">
+                <div className="column">
+                  {/*
+                  <p className="cgst-title">
+                    <b>J D ENTERPRISES &nbsp; जे डी एन्टरप्राइझेस </b>
+                  </p>
+                  */} <img src={logo} alt={'logo'} />
+                  <p>Azad Chowk Koregaon, District Satara 415501</p>
+                  <p>GSTIN/UIN: 27AEBPA1115P1ZT</p>
+                  <p>State Name : Maharashtra, Code : 27</p>
+                  <p>
+                    {' '} Office.No: (02163) 220987, Mobile No. 9700220987 /
+                    9394987987{' '}
+                  </p>
+                  <p>E-Mail : jdenterprises0987@gmail.com</p>
+                </div>
+              </td>
+              <td>
+                Invoice No.
+                <p>{data.getJdentBuyer.invoiceNo}</p>
+              </td>
+              {/*
+              <td>
+                Dated
+                <p>{new Date(data.getJdentBuyer.date).toLocaleDateString()}</p>
+              </td>
+              */}
+              <td>
+                Dated{' '}
+                <p>
+                  {moment(data.getJdentBuyer.deliveryNoteDate).format(
+                  'DD/MM/YYYY' )}
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>Delivery Note :</td>
+              <td>
+                Mode/Terms of Payment :{' '}
+                <p className="cgst-title">{data.getJdentBuyer.deliveryNote}</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Supplier Ref.
+                <p>{data.getJdentBuyer.supplierRef}</p>
+              </td>
+              <td>
+                Other Ref.
+                <p>{data.getJdentBuyer.otherRef}</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Buyer's Order No.
+                <p>{data.getJdentBuyer.buyersOrderNo}</p>
+              </td>
+              <td>
+                Dated.
+                <p>
+                  {moment(data.getJdentBuyer.deliveryNoteDate).format(
+                  'DD/MM/YYYY' )}
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="3">
+                <div className="column">
+                  <p>Buyer</p>
+                  <p>
+                    <b>{data.getJdentBuyer.title}</b>
+                  </p>
+                  <p>{data.getJdentBuyer.address}</p>
+                  <p>Mobile No. :{data.getJdentBuyer.contactNo}</p>
+                  <p>Email Id. : {data.getJdentBuyer.emailId}</p>
+                </div>
+              </td>
+              <td>
+                Dispatch Doc. No.
+                <p>{data.getJdentBuyer.dispatchDocumentNo}</p>
+              </td>
+              <td>
+                Delivery Date.
+                <p>
+                  {' '} {moment(data.getJdentBuyer.deliveryNoteDate).format(
+                  'DD/MM/YYYY' )}
+                </p>
+              </td>
+            </tr>
+
+            {/*
+            <tr>
+              <td>
+                Dispatch Document No.
+
+                <p>{data.getJdentBuyer.dispatchDocumentNo}</p>
+              </td>
+              <td>
+                Delivery Note Date.
+                <p>{data.getJdentBuyer.deliveryNoteDate}</p>
+              </td>
+            </tr>
+            */}
+
+            <tr>
+              <td>
+                Dispatched through
+                <p>{data.getJdentBuyer.dispatchedThrough}</p>
+              </td>
+              <td>
+                Destination.
+                <p>{data.getJdentBuyer.destination}</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                {' '} Terms Of Delivery
+                <p>No Return, No Refund Policies</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="1px" width="100%" id="cssTable">
+          <tbody>
+            <tr>
+              <th>Sr.no</th>
+              <th>Discription of Goods</th>
+              <th>HSN/SAC</th>
+              <th>Qty</th>
+              <th>Rate</th>
+              <th>Per</th>
+              <th>Disc%</th>
+              <th>Amount</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>
+                <b>
+                  <p className="card-header-title">
+                    {data.getJdentBuyer.disriptionOfGoods}{' '}
+                  </p>
+                </b>
+                <b>Model No. : </b>{' '}
+                <p className="cgst-title">{data.getJdentBuyer.modelNo}</p>
+                <b>SIR. No. :</b>{' '}
+                <p className="cgst-title">{data.getJdentBuyer.sirNo}</p>
+              </td>
+              <td>
+                <p>{data.getJdentBuyer.hsnsac}</p>
+              </td>
+              <td>
+                <p>1</p>
+              </td>
+              <td>
+                <p>{originalCost.toFixed(2)}</p>
+              </td>
+              <td>
+                <p>1</p>
+              </td>
+              <td>
+                <p>0 %</p>
+              </td>
+              <td>{originalCost.toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <p>CGST @{CGSTPer}%</p>
+                <p>SGST @{SGSTPer}%</p>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <p>{SGSTAmt.toFixed(2)}</p>
+                <p>{CGSTAmt.toFixed(2)}</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">Total Expense:</td>
+              <td></td>
+              <td>1 Nos</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <p className="cgst-title">{price.toFixed(2)}</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="8">
+                <div className="columns">
+                  <div className="column">
+                    &nbsp;<b>Amount in words.</b>
+                    <p className="cgst-title">&nbsp;{amountInWord}</p>
+                  </div>
+                  {/*
+                  <div className="columns">
+                    <p>E. & O.E</p>
+                  </div>
+                  */}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="1px" width="100%" id="cssTable">
+          <tbody>
+            <tr>
+              <th rowspan="2">HSN/SAC</th>
+              <th rowspan="2">Taxable Value</th>
+              <th colspan="2">Central Tax</th>
+              <th colspan="2">Sales tax</th>
+              <th rowspan="2">Total Tax Amount</th>
+            </tr>
+            <tr>
+              <td>Rate</td>
+              <td>Amount</td>
+              <td>Rate</td>
+              <td>Amount</td>
+            </tr>
+            <tr>
+              <td>{data.getJdentBuyer.hsnsac}</td>
+              <td>{originalCost.toFixed(2)}</td>
+              <td>{CGSTPer} %</td>
+              <td>{CGSTAmt.toFixed(2)}</td>
+              <td>{SGSTPer} %</td>
+              <td>{SGSTAmt.toFixed(2)}</td>
+              <td>
+                <p className="cgst-title">{totalGSTAmt.toFixed(2)}</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="8">
+                <div className="columns" id="field-left">
+                  <div className="column">
+                    <p>
+                      <u>
+                        <b>Declaration</b>
+                      </u>
+                    </p>
+                    <div className="field">
+                      <span>
+                        We declare that this invoice shows the actual price of
+                        the goods described and that all particulars are true
+                        and correct.
+                      </span>
+                    </div>
+                  </div>
+                  <div className="column">
+                    <p>
+                      <u>
+                        <b>Bank Details</b>
+                      </u>
+                    </p>
+                    <p>
+                      {' '}
+                      <b>Bank A/c : </b> IDBI Bank
+                    </p>
+                    <p><b>A/c No : </b> 473102000000365</p>
+                    <p><b>Branch & IFS Code : </b> Koregaon & IBKL0000473</p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>Customer Seal And Signature</p>
+                {' '}
+              </td>
+              <td colspan="4">
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p className="cgst-title">For J. D. ENTERPRISES</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="8">
+                <p>Subject to SATARA JURISDICTION</p>
+                <p>this is Computer Generated Invoice</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
