@@ -287,7 +287,7 @@ const ListOfInvoice = ({ history }) => {
     let printList = state.selectedRows;
     console.log('len Rows: ', printList.length);
 
-    if (printList.length != 0) {
+    if (printList.length !== 0) {
       var url = new URL('http://localhost:4300/api/generatePdf64'),
         params = printList;
       fetch(url, {
