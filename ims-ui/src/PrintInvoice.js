@@ -67,7 +67,7 @@ const PrintInvoice = ({ match }) => {
 
   // const invoice = data;
 
-  var price = parseInt(data.getJdentBuyer.totalAmount);
+  let price = parseInt(data.getJdentBuyer.totalAmount);
   var sglDigit = [
       'Zero',
       'One',
@@ -105,18 +105,18 @@ const PrintInvoice = ({ match }) => {
       'Ninety',
     ],
     handle_tens = function (dgt, prevDgt) {
-      return 0 == dgt
+      return 0 === dgt
         ? ''
-        : ' ' + (1 == dgt ? dblDigit[prevDgt] : tensPlace[dgt]);
+        : ' ' + (1 === dgt ? dblDigit[prevDgt] : tensPlace[dgt]);
     },
     handle_utlc = function (dgt, nxtDgt, denom) {
       return (
-        (0 != dgt && 1 != nxtDgt ? ' ' + sglDigit[dgt] : '') +
-        (0 != nxtDgt || dgt > 0 ? ' ' + denom : '')
+        (0 !== dgt && 1 !== nxtDgt ? ' ' + sglDigit[dgt] : '') +
+        (0 !== nxtDgt || dgt > 0 ? ' ' + denom : '')
       );
     };
 
-  var priceInWord;
+  let priceInWord;
 
   var str = '',
     digitIdx = 0,
@@ -139,11 +139,11 @@ const PrintInvoice = ({ match }) => {
           break;
         case 2:
           words.push(
-            0 != digit
+            0 !== digit
               ? ' ' +
                   sglDigit[digit] +
                   ' Hundred' +
-                  (0 != price[digitIdx + 1] && 0 != price[digitIdx + 2]
+                  (0 !== price[digitIdx + 1] && 0 !== price[digitIdx + 2]
                     ? ' and'
                     : '')
               : ''
@@ -169,15 +169,18 @@ const PrintInvoice = ({ match }) => {
           break;
         case 9:
           words.push(
-            0 != digit
+            0 !== digit
               ? ' ' +
                   sglDigit[digit] +
                   ' Hundred' +
-                  (0 != price[digitIdx + 1] || 0 != price[digitIdx + 2]
+                  (0 !== price[digitIdx + 1] || 0 !== price[digitIdx + 2]
                     ? ' and'
                     : ' Crore')
               : ''
           );
+          break;
+        default:
+          return 0;
       }
     str = words.reverse().join('');
     priceInWord = str + ' Rupee Only ';
@@ -187,18 +190,20 @@ const PrintInvoice = ({ match }) => {
     console.log(str);
     priceInWord = str + ' Rupee Only ';
   }
-  var price = parseInt(data.getJdentBuyer.totalAmount);
+
+  var amount = parseInt(data.getJdentBuyer.totalAmount);
   var gstRatePer = parseInt(data.getJdentBuyer.content);
+
   const SGSTPer = gstRatePer / 2;
   const CGSTPer = gstRatePer / 2;
   console.log('gstRatePer', gstRatePer);
 
-  var totalGSTAmt = price - price * (100 / (100 + gstRatePer));
-  var originalCost = price - totalGSTAmt;
+  var totalGSTAmt = amount - amount * (100 / (100 + gstRatePer));
+  var originalCost = amount - totalGSTAmt;
   const SGSTAmt = totalGSTAmt / 2;
   const CGSTAmt = totalGSTAmt / 2;
 
-  console.log('price', price.toFixed(2));
+  console.log('amount', amount.toFixed(2));
   console.log('tgstAMt', totalGSTAmt.toFixed(2));
   console.log('oricost', originalCost.toFixed(2));
   console.log('SGSTAmt', SGSTAmt.toFixed(2));
@@ -395,7 +400,7 @@ const PrintInvoice = ({ match }) => {
               <td></td>
               <td></td>
               <td>
-                <p className='cgst-title'>{price.toFixed(2)}</p>
+                <p className='cgst-title'>{amount.toFixed(2)}</p>
               </td>
             </tr>
             <tr>
@@ -502,120 +507,3 @@ const PrintInvoice = ({ match }) => {
 };
 
 export default PrintInvoice;
-
-// const price_in_words = (price) => {
-//   var sglDigit = [
-//       'Zero',
-//       'One',
-//       'Two',
-//       'Three',
-//       'Four',
-//       'Five',
-//       'Six',
-//       'Seven',
-//       'Eight',
-//       'Nine',
-//     ],
-//     dblDigit = [
-//       'Ten',
-//       'Eleven',
-//       'Twelve',
-//       'Thirteen',
-//       'Fourteen',
-//       'Fifteen',
-//       'Sixteen',
-//       'Seventeen',
-//       'Eighteen',
-//       'Nineteen',
-//     ],
-//     tensPlace = [
-//       '',
-//       'Ten',
-//       'Twenty',
-//       'Thirty',
-//       'Forty',
-//       'Fifty',
-//       'Sixty',
-//       'Seventy',
-//       'Eighty',
-//       'Ninety',
-//     ],
-//     handle_tens = function (dgt, prevDgt) {
-//       return 0 == dgt
-//         ? ''
-//         : ' ' + (1 == dgt ? dblDigit[prevDgt] : tensPlace[dgt]);
-//     },
-//     handle_utlc = function (dgt, nxtDgt, denom) {
-//       return (
-//         (0 != dgt && 1 != nxtDgt ? ' ' + sglDigit[dgt] : '') +
-//         (0 != nxtDgt || dgt > 0 ? ' ' + denom : '')
-//       );
-//     };
-
-//   var str = '',
-//     digitIdx = 0,
-//     digit = 0,
-//     nxtDigit = 0,
-//     words = [];
-//   if (((price += ''), isNaN(parseInt(price)))) str = '';
-//   else if (parseInt(price) > 0 && price.length <= 10) {
-//     for (digitIdx = price.length - 1; digitIdx >= 0; digitIdx--)
-//       switch (
-//         ((digit = price[digitIdx] - 0),
-//         (nxtDigit = digitIdx > 0 ? price[digitIdx - 1] - 0 : 0),
-//         price.length - digitIdx - 1)
-//       ) {
-//         case 0:
-//           words.push(handle_utlc(digit, nxtDigit, ''));
-//           break;
-//         case 1:
-//           words.push(handle_tens(digit, price[digitIdx + 1]));
-//           break;
-//         case 2:
-//           words.push(
-//             0 != digit
-//               ? ' ' +
-//                   sglDigit[digit] +
-//                   ' Hundred' +
-//                   (0 != price[digitIdx + 1] && 0 != price[digitIdx + 2]
-//                     ? ' and'
-//                     : '')
-//               : ''
-//           );
-//           break;
-//         case 3:
-//           words.push(handle_utlc(digit, nxtDigit, 'Thousand'));
-//           break;
-//         case 4:
-//           words.push(handle_tens(digit, price[digitIdx + 1]));
-//           break;
-//         case 5:
-//           words.push(handle_utlc(digit, nxtDigit, 'Lakh'));
-//           break;
-//         case 6:
-//           words.push(handle_tens(digit, price[digitIdx + 1]));
-//           break;
-//         case 7:
-//           words.push(handle_utlc(digit, nxtDigit, 'Crore'));
-//           break;
-//         case 8:
-//           words.push(handle_tens(digit, price[digitIdx + 1]));
-//           break;
-//         case 9:
-//           words.push(
-//             0 != digit
-//               ? ' ' +
-//                   sglDigit[digit] +
-//                   ' Hundred' +
-//                   (0 != price[digitIdx + 1] || 0 != price[digitIdx + 2]
-//                     ? ' and'
-//                     : ' Crore')
-//               : ''
-//           );
-//       }
-//     str = words.reverse().join('');
-//   } else str = '';
-//   return str;
-// };
-
-// export default price_in_words;
