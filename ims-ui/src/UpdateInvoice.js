@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { notify } from 'react-notify-toast';
 import gql from 'graphql-tag';
@@ -135,25 +135,21 @@ const UPDATE_INVOICE = gql`
   }
 `;
 
-const UpdateInvoice = ({ match }) => {
+const UpdateInvoice = ({ match, history }) => {
   console.log('UpdateInvoice--------->', match.params);
 
   const [title, setTitle] = useState('');
-  let [content, setContent] = useState('');
-
-  // const title  [title, setTitle] = useState('');
-  // const content  [content, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [address, setAddress] = useState('');
   const [emailId, setEmailId] = useState('');
   const [contactNo, setContactNo] = useState('');
   const [invoiceNo, setInvoiceNo] = useState('');
-  let [deliveryNote, setDeliveryNote] = useState('');
+  const [deliveryNote, setDeliveryNote] = useState('');
   const [supplierRef, setSupplierRef] = useState('');
   const [otherRef, setOtherRef] = useState('');
   const [buyersOrderNo, setBuyersOrderNo] = useState('');
   const [dispatchDocumentNo, setDispatchDocumentNo] = useState('');
-  // const [deliveryNoteDate, setDeliveryNoteDate] = useState('');
-  let [deliveryNoteDate, setStartDate] = useState(new Date());
+  const [deliveryNoteDate, setStartDate] = useState('');
   const [dispatchedThrough, setDispatchedThrough] = useState('');
   const [destination, setDestination] = useState('');
   const [termsOfDelivery, setTermsOfDelivery] = useState('');
@@ -184,15 +180,10 @@ const UpdateInvoice = ({ match }) => {
   if (error) return <div>Error fetching note</div>;
 
   // set the  result gotten from rhe GraphQL server into the note variable.
- 
-
   const invoice = data.getJdentBuyer;
-
-
-  deliveryNoteDate=new Date(invoice.deliveryNoteDate);
-  content=invoice.content
-  deliveryNote=invoice.deliveryNote
-
+  let predeliveryNoteDate = new Date(invoice.deliveryNoteDate);
+  let gstPercentage = invoice.content;
+  let preDeliveryNote = invoice.deliveryNote;
   var amountString = parseInt(data.getJdentBuyer.totalAmount);
 
   var amountToWord = amountString;
@@ -305,6 +296,10 @@ const UpdateInvoice = ({ match }) => {
   console.log('SGSTAmt', SGSTAmt.toFixed(2));
   console.log('CGSTAmt', CGSTAmt.toFixed(2));
 
+  function handleDateChange(event) {
+    setStartDate(new Date(event));
+  }
+
   return (
     <div className='container m-t-20'>
       <h1 className='page-title'>Edit Invoice</h1>
@@ -368,6 +363,8 @@ const UpdateInvoice = ({ match }) => {
             });
             console.log('ON SUBMIT ', invoice);
 
+            history.push('/');
+            window.location.reload(false);
             notify.show('Invoice was edited successfully', 'success');
           }}
         >
@@ -423,8 +420,8 @@ const UpdateInvoice = ({ match }) => {
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                   >
-                    <option defaultValue='' >
-                      Choose your option
+                    <option defaultValue={gstPercentage}>
+                      {gstPercentage} %
                     </option>
                     <option value='5'>5 %</option>
                     <option value='18'>18 %</option>
@@ -462,7 +459,6 @@ const UpdateInvoice = ({ match }) => {
                   ></input>
                 </div>
               </div> */}
-
 
               <div className='field invisible'>
                 <label className='label'>supplierRef</label>
@@ -551,7 +547,6 @@ const UpdateInvoice = ({ match }) => {
                 </div>
               </div>
 
-
               <div className='field'>
                 <label className='label'>Mode / Terms of Payment</label>
                 <div className='control'>
@@ -561,8 +556,8 @@ const UpdateInvoice = ({ match }) => {
                     value={deliveryNote}
                     onChange={(e) => setDeliveryNote(e.target.value)}
                   >
-                    <option defaultValue='' >
-                      Choose your option
+                    <option defaultValue={preDeliveryNote}>
+                      {preDeliveryNote}
                     </option>
                     <option value='Cash'>Cash</option>
                     <option value='Swipe'>Swipe</option>
@@ -638,15 +633,16 @@ const UpdateInvoice = ({ match }) => {
                 <label className='label'> Date</label>
                 <div className='control'>
                   <DatePicker
-                   className='input'
-        showMonthDropdown={true}
-        showYearDropdown={true}
-        scrollableYearDropdown={true}
-      dateFormat="dd/MM/yyyy"
-         
-                    selected={deliveryNoteDate}
-                    
-                    onChange={(date) => setStartDate(date)}
+                    className='input'
+                    showMonthDropdown={true}
+                    showYearDropdown={true}
+                    scrollableYearDropdown={true}
+                    dateFormat='dd/MM/yyyy'
+                    // selected={deliveryNoteDate}
+                    selected={
+                      deliveryNoteDate ? deliveryNoteDate : predeliveryNoteDate
+                    }
+                    onChange={handleDateChange}
                   />
                 </div>
               </div>
