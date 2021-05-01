@@ -142,43 +142,32 @@ const CreateInvoice = withRouter(({ history }) => {
   const [address, setAddress] = useState('');
   const [emailId, setEmailId] = useState('');
   const [contactNo, setContactNo] = useState('');
-  const [invoiceNo, setInvoiceNo] = useState('');
+  //const [invoiceNo, setInvoiceNo] = useState('');
   const [deliveryNote, setDeliveryNote] = useState('');
-  const [supplierRef, setSupplierRef] = useState('');
-  const [otherRef, setOtherRef] = useState('');
-  const [buyersOrderNo, setBuyersOrderNo] = useState('');
-  const [dispatchDocumentNo, setDispatchDocumentNo] = useState('');
+  //const [supplierRef, setSupplierRef] = useState('');
+  //const [otherRef, setOtherRef] = useState('');
+  //const [buyersOrderNo, setBuyersOrderNo] = useState('');
+  //const [dispatchDocumentNo, setDispatchDocumentNo] = useState('');
   // const [deliveryNoteDate, setDeliveryNoteDate] = useState('');
-  const [dispatchedThrough, setDispatchedThrough] = useState('');
-  const [destination, setDestination] = useState('');
-  const [termsOfDelivery, setTermsOfDelivery] = useState('');
+  //const [dispatchedThrough, setDispatchedThrough] = useState('');
+  //const [destination, setDestination] = useState('');
+  //const [termsOfDelivery, setTermsOfDelivery] = useState('');
   const [srNo, setSrNo] = useState('');
   const [disriptionOfGoods, setDisriptionOfGoods] = useState('');
   const [modelNo, setModelNo] = useState('');
   const [sirNo, setSerialNo] = useState('');
-  const [hsnsac, setHsnsac] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [rate, setRate] = useState('');
-  const [per, setPer] = useState('');
-  const [discount, setDiscount] = useState('');
-  const [amount, setAmount] = useState('');
+  //const [hsnsac, setHsnsac] = useState('');
+  //const [quantity, setQuantity] = useState('');
+  //const [rate, setRate] = useState('');
+  //const [per, setPer] = useState('');
+  //const [discount, setDiscount] = useState('');
+  //const [amount, setAmount] = useState('');
   const [totalAmount, setTotalAmount] = useState('');
-  const [totalAmountInWords, setTotalAmountInWords] = useState('');
+  //const [totalAmountInWords, setTotalAmountInWords] = useState('');
 
   //const [deliveryNoteDate, setDeliveryNoteDate] = useState(new Date());
   // const [deliveryNoteDate, onChange] = useState(new Date());
   const [deliveryNoteDate, setStartDate] = useState(new Date());
-
-  function handleChange(value, formattedValue) {
-    // this.setState({
-    //   value: value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
-    //   formattedValue: formattedValue, // Formatt ed String, ex: "11/19/2016"
-    // });
-  }
-
-  // function onChange(nextValue) {
-  //   setDeliveryNoteDate(nextValue);
-  // }
 
   const [createBuyer] = useMutation(NEW_INVOICE, {
     update(cache, { data: { createBuyer } }) {
@@ -198,6 +187,7 @@ const CreateInvoice = withRouter(({ history }) => {
         <form
           className='newnote-page m-t-50'
           onSubmit={(e) => {
+            console.log('e', e);
             e.preventDefault();
 
             createBuyer({
@@ -208,28 +198,28 @@ const CreateInvoice = withRouter(({ history }) => {
                 emailId,
                 contactNo,
                 date: Date.now,
-                invoiceNo,
+                //  invoiceNo,
                 deliveryNote,
-                supplierRef,
-                otherRef,
-                buyersOrderNo,
-                dispatchDocumentNo,
+                // supplierRef,
+                // otherRef,
+                // buyersOrderNo,
+                // dispatchDocumentNo,
                 deliveryNoteDate,
-                dispatchedThrough,
-                destination,
-                termsOfDelivery,
+                // dispatchedThrough,
+                // destination,
+                // termsOfDelivery,
                 srNo,
                 disriptionOfGoods,
                 modelNo,
                 sirNo,
-                hsnsac,
-                quantity,
-                rate,
-                per,
-                discount,
-                amount,
+                // hsnsac,
+                // quantity,
+                // rate,
+                // per,
+                // discount,
+                // amount,
                 totalAmount,
-                totalAmountInWords,
+                // totalAmountInWords,
               },
             });
             history.push('/');
@@ -346,9 +336,7 @@ const CreateInvoice = withRouter(({ history }) => {
                     value={deliveryNote}
                     onChange={(e) => setDeliveryNote(e.target.value)}
                   >
-                    <option defaultValue='' >
-                      Choose your option
-                    </option>
+                    <option defaultValue=''>Choose your option</option>
                     <option value='Cash'>Cash</option>
                     <option value='Swipe'>Swipe</option>
                     <option value='Account Transfer by HDFC'>
@@ -472,9 +460,7 @@ const CreateInvoice = withRouter(({ history }) => {
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                   >
-                    <option defaultValue='' >
-                      Choose your option
-                    </option>
+                    <option defaultValue=''>Choose your option</option>
                     <option value='5'>5 %</option>
                     <option value='18'>18 %</option>
                     <option value='28'>28 %</option>
@@ -556,7 +542,7 @@ const CreateInvoice = withRouter(({ history }) => {
                 <div className='control'>
                   <DatePicker
                     className='input'
-                    dateFormat="dd/MM/yyyy"
+                    dateFormat='dd/MM/yyyy'
                     selected={deliveryNoteDate}
                     showMonthDropdown={true}
                     showYearDropdown={true}

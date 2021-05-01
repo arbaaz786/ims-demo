@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './App.css';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
@@ -121,9 +120,7 @@ function ListOfInvoice() {
             onDelete(row);
           }}
         >
-          <a>
-            <i className='fas fa-trash-alt'></i>
-          </a>
+          <i className='fas fa-trash-alt'></i>
         </button>
       ),
     },
@@ -142,6 +139,23 @@ function ListOfInvoice() {
       window.location.reload(false);
     }
   }
+
+  // function onPDFSelect() {
+  //   var pages = ['P1.pdf', 'P2.pdf', 'P3.pdf'];
+  //   var oWindow = new Array();
+
+  //   for (var i = 0; i < pages.length; i++) {
+  //     oWindow[i] = window.open(pages[i]);
+  //   }
+  //   setTimeout('PrintAll()', 5000);
+  // }
+
+  // function PrintAll() {
+  //   for (var i = 0; i < pages.length; i++) {
+  //     oWindow[i].print();
+  //     oWindow[i].close();
+  //   }
+  // }
 
   const [deleteBuyer] = useMutation(DELETE_INVOICE_QUERY, {
     update(cache, { data: { deleteBuyer } }) {

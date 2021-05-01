@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { notify } from 'react-notify-toast';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import logo from './images/jdent.png';
 import moment from 'moment';
@@ -299,7 +298,10 @@ const PrintInvoice = ({ match }) => {
             <tr>
               <td colSpan='2'>
                 {' '}
-                Terms Of Delivery  <b><p>No Return, No Refund Policies</p></b>
+                Terms Of Delivery{' '}
+                <b>
+                  <p>No Return, No Refund Policies</p>
+                </b>
               </td>
             </tr>
           </tbody>
@@ -378,7 +380,10 @@ const PrintInvoice = ({ match }) => {
                 <div className='columns'>
                   <div className='column'>
                     &nbsp;Amount in words.
-                    <b> <p className='cgst-title'> &nbsp;{amountInWord}</p></b>
+                    <b>
+                      {' '}
+                      <p className='cgst-title'> &nbsp;{amountInWord}</p>
+                    </b>
                   </div>
                   {/* <div className="columns">
                    <p >E. & O.E</p>

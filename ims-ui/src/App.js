@@ -8,7 +8,7 @@ import EditNote from './EditNote';
 import NewEntry from './NewEntry';
 // import EditEntry from "./EditEntry";
 import CreateInvoice from './CreateInvoice';
-import AllInvoices from './AllInvoices';
+// import AllInvoices from './AllInvoices';
 import EditInvoice from './EditInvoice';
 // import AllNotes from './AllNotes';
 import PrintInvoice from './PrintInvoice';
@@ -59,7 +59,7 @@ function App() {
           </div>
         </nav>
         {/* <Route exact path="/" component={AllEntries} /> */}
-        <Route exact path='/invoices' component={AllInvoices} />
+        {/* <Route exact path='/invoices' component={AllInvoices} /> */}
         {/* <Route exact path='/' component={AllInvoices} /> */}
         <Route exact path='/' component={ListOfInvoices} />
         <Route path='/newnote' component={NewNote} />
