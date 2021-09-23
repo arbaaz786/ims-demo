@@ -32,7 +32,7 @@ const DELETE_NOTE_QUERY = gql`
   }
 `;
 
-const AllNotes = () => {
+const AllProducts = () => {
   const { loading, error, data } = useQuery(NOTES_QUERY);
 
   const [deleteNote] = useMutation(DELETE_NOTE_QUERY, {
@@ -49,23 +49,23 @@ const AllNotes = () => {
 
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
-  console.log("data---->",data);
+  console.log("data---->", data);
   return (
     <div className='container m-t-20'>
-      <h1 className='page-title'>All Entries</h1>
+      <h1 className='page-title'>All Products</h1>
 
       <div className='allnotes-page'>
         <div className='columns is-multiline'>
           {data.allNotes.map((note) => (
-           
+
             <div className='column is-one-third' key={note._id}>
-               {JSON.stringify(note.image)}
+              {JSON.stringify(note.image)}
               <div className='card'>
                 <header className='card-header'>
                   <p className='card-header-title'>{note.title}</p>
                 </header>
                 <div className='card-content'>
-                <img src={productimg} className='product' alt={'logo'} />
+                  <img src={productimg} className='product' alt={'logo'} />
                   <div className='content'>
                     {note.content}
                     <br />
@@ -90,6 +90,11 @@ const AllNotes = () => {
                   >
                     Delete
                   </button>
+                  <button>
+                    <a href={`productdetails/${note._id}`}>
+                      <i className='fas fa-print'></i>
+                    </a>
+                  </button>
                 </footer>
               </div>
             </div>
@@ -100,4 +105,4 @@ const AllNotes = () => {
   );
 };
 
-export default AllNotes;
+export default AllProducts;

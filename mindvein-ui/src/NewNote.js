@@ -3,10 +3,8 @@ import { withRouter } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
-
-
 const NEW_NOTE = gql`
-  mutation createNote($title: String!, $content: String!,$image:String!,$price:String) {
+  mutation createNote($title: String!, $content: String!,$image:String!,$price:String!) {
     createNote(input: { title: $title, content: $content ,image:$image,price:$price}) {
       _id
       title
