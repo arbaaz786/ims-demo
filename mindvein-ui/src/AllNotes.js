@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { notify } from 'react-notify-toast';
+import productimg from './images/sugarfree.png';
+
 
 const NOTES_QUERY = gql`
   {
     allNotes {
       title
       content
+      image
+      price
       _id
       date
     }
@@ -20,6 +24,8 @@ const DELETE_NOTE_QUERY = gql`
     deleteNote(_id: $_id) {
       title
       content
+      image
+      price
       _id
       date
     }
@@ -43,7 +49,7 @@ const AllNotes = () => {
 
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
-
+  console.log("data---->",data);
   return (
     <div className='container m-t-20'>
       <h1 className='page-title'>All Entries</h1>
@@ -51,31 +57,28 @@ const AllNotes = () => {
       <div className='allnotes-page'>
         <div className='columns is-multiline'>
           {data.allNotes.map((note) => (
+           
             <div className='column is-one-third' key={note._id}>
+               {JSON.stringify(note.image)}
               <div className='card'>
                 <header className='card-header'>
                   <p className='card-header-title'>{note.title}</p>
                 </header>
                 <div className='card-content'>
+                <img src={productimg} className='product' alt={'logo'} />
                   <div className='content'>
                     {note.content}
                     <br />
+                    {note.price}
                   </div>
                   <div className='content'>
                     {new Date(note.date).toString()}
-
                     <br />
                   </div>
                 </div>
                 <footer className='card-footer'>
                   <Link to={`note/${note._id}`} className='card-footer-item'>
                     Edit
-                  </Link>
-                  <Link
-                    to={`updateInvoice/${note._id}`}
-                    className='card-footer-item'
-                  >
-                    updateInvoice
                   </Link>
                   <button
                     onClick={(e) => {

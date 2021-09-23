@@ -14,7 +14,14 @@ code {
 
 .logo {
   width: 120px;
-  height: 31px;
+  height: 41px;
+  margin: 16px 28px 16px 28px;
+  float: left;
+}
+
+.product {
+  width: 220px;
+  height: 100px;
   margin: 16px 28px 16px 28px;
   float: left;
 }

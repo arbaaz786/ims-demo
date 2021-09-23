@@ -9,17 +9,21 @@ const NOTE_QUERY = gql`
       _id
       title
       content
+      image
+      price
       date
     }
   }
 `;
 
 const UPDATE_NOTE = gql`
-  mutation updateNote($_id: ID!, $title: String, $content: String) {
-    updateNote(_id: $_id, input: { title: $title, content: $content }) {
+  mutation updateNote($_id: ID!, $title: String, $content: String, $image:String,$price:String) {
+    updateNote(_id: $_id, input: { title: $title, content: $content, image:$image ,price:$price}) {
       _id
       title
       content
+      image
+      price
     }
   }
 `;
@@ -27,6 +31,8 @@ const UPDATE_NOTE = gql`
 const EditNote = ({ match }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [image, setImage] = useState('');
+  const [price, setPrice] = useState('');
 
   const { loading, error, data } = useQuery(NOTE_QUERY, {
     variables: {
@@ -36,15 +42,15 @@ const EditNote = ({ match }) => {
 
   const [updateNote] = useMutation(UPDATE_NOTE);
 
-  if (loading) return <div>Fetching note</div>;
-  if (error) return <div>Error fetching note</div>;
+  if (loading) return <div>Fetching product</div>;
+  if (error) return <div>Error fetching product</div>;
 
   // set the  result gotten from rhe GraphQL server into the note variable.
   const note = data;
 
   return (
     <div className='container m-t-20'>
-      <h1 className='page-title'>Edit Note</h1>
+      <h1 className='page-title'>Edit Product</h1>
 
       <div className='newnote-page m-t-20'>
         <form
@@ -60,6 +66,8 @@ const EditNote = ({ match }) => {
                 _id: note.getNote._id,
                 title: title ? title : note.getNote.title,
                 content: content ? content : note.getNote.content,
+                image:image ? image : note.getNote.image,
+                price:price ? price : note.getNote.price,
               },
             });
 
@@ -67,7 +75,7 @@ const EditNote = ({ match }) => {
           }}
         >
           <div className='field'>
-            <label className='label'>Note Title</label>
+            <label className='label'>Product Title</label>
             <div className='control'>
               <input
                 className='input'
@@ -82,7 +90,7 @@ const EditNote = ({ match }) => {
           </div>
 
           <div className='field'>
-            <label className='label'>Note Content</label>
+            <label className='label'>Product Content</label>
             <div className='control'>
               <textarea
                 className='textarea'
@@ -93,6 +101,34 @@ const EditNote = ({ match }) => {
                 onChange={(e) => setContent(e.target.value)}
                 required
               ></textarea>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Image Path</label>
+            <div className="control">
+              <input
+                className="input"
+                name="image"
+                type="text"
+                placeholder="Image Title"
+                defaultValue={image}
+                onChange={e => setImage(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Product Price</label>
+            <div className="control">
+              <input
+                className="input"
+                name="price"
+                type="text"
+                placeholder="Enter Price Here"
+                defaultValue={price}
+                onChange={e => setPrice(e.target.value)}
+              />
             </div>
           </div>
 

@@ -114,7 +114,7 @@ const ListOfInvoice = ({ history }) => {
       cell: (row) => (
         <button>
           <a
-            href={` updateInvoice/${row.srNo ? row.srNo : 'Nill'}/${
+            href={`updateInvoice/${row.srNo ? row.srNo : 'Nill'}/${
               row.totalAmount
             }/${row.deliveryNoteDate}/${row.deliveryNote}/${row._id}`}
           >

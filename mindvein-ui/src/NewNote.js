@@ -6,11 +6,13 @@ import gql from "graphql-tag";
 
 
 const NEW_NOTE = gql`
-  mutation createNote($title: String!, $content: String!) {
-    createNote(input: { title: $title, content: $content }) {
+  mutation createNote($title: String!, $content: String!,$image:String!,$price:String) {
+    createNote(input: { title: $title, content: $content ,image:$image,price:$price}) {
       _id
       title
       content
+      image
+      price
       date
     }
   }
@@ -21,6 +23,8 @@ const NOTES_QUERY = gql`
     allNotes {
       title
       content
+      image
+      price
       _id
       date
     }
@@ -30,6 +34,8 @@ const NOTES_QUERY = gql`
 const NewNote = withRouter(({ history }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState("");
 
   const [createNote] = useMutation(NEW_NOTE, {
     update(
@@ -49,7 +55,7 @@ const NewNote = withRouter(({ history }) => {
 
   return (
     <div className="container m-t-20">
-      <h1 className="page-title">New Note</h1>
+      <h1 className="page-title">New Product</h1>
 
       <div className="newnote-page m-t-20">
         <form
@@ -60,6 +66,8 @@ const NewNote = withRouter(({ history }) => {
               variables: {
                 title,
                 content,
+                image,
+                price,
                 date: Date.now()
               }
             });
@@ -67,7 +75,7 @@ const NewNote = withRouter(({ history }) => {
           }}
         >
           <div className="field">
-            <label className="label">Note Title</label>
+            <label className="label">Product Title</label>
             <div className="control">
               <input
                 className="input"
@@ -81,7 +89,35 @@ const NewNote = withRouter(({ history }) => {
           </div>
 
           <div className="field">
-            <label className="label">Note Content</label>
+            <label className="label">Image Path</label>
+            <div className="control">
+              <input
+                className="input"
+                name="image"
+                type="text"
+                placeholder="Image Title"
+                value={image}
+                onChange={e => setImage(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Product Price</label>
+            <div className="control">
+              <input
+                className="input"
+                name="price"
+                type="text"
+                placeholder="Enter Price Here"
+                value={price}
+                onChange={e => setPrice(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Product Content</label>
             <div className="control">
               <textarea
                 className="textarea"

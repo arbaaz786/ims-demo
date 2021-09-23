@@ -6,7 +6,9 @@ const typeDefs = `
   _id: ID!
   title: String!,
   date: Date,
-  content: String!
+  content: String!,
+  image:String,
+  price:String
  }
 
  type Entry{
@@ -131,12 +133,16 @@ type JdentBuyer {
 
  input NoteInput {
  	title: String!
-   content: String!
+  content: String!
+  image:String!
+  price:String!
  }
 
  input NoteUpdateInput {
   title: String
   content: String
+  image:String
+  price:String
  }
 
  input EntryInput {
